@@ -6,5 +6,6 @@ public class MyFirstApp {
         Scanner console = new Scanner(System.in);
         System.out.print("Введите свое имя: ");
         System.out.println(console.nextLine());
+        System.out.println("Удачи");
     }
 }
