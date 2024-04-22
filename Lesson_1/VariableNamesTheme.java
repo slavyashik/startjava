@@ -18,7 +18,7 @@ public class VariableNamesTheme {
 
     //произведение цифр
     int productOfNumbers = 4;
-    System.out.println("произведение цифр = " + productNumbers);
+    System.out.println("произведение цифр = " + productOfNumbers);
 
     //максимальное число
     int maxNumber = 10;
@@ -82,7 +82,7 @@ public class VariableNamesTheme {
 
     //пункт меню
     int itemOfMenu = 1;
-    System.out.println("пункт меню = " + menuItem);
+    System.out.println("пункт меню = " + itemOfMenu);
 
     //стоимость кофе на вынос
     int takeAwayCoffeePrice = 60;
@@ -94,7 +94,7 @@ public class VariableNamesTheme {
 
     //окончание диапазона
     int endOfBand = 40;
-    System.out.println("окончание диапазона = " + bandEnd);
+    System.out.println("окончание диапазона = " + endOfBand);
 
     //полное имя работника месяца
     String fullNameEmployeeOfMonth = "Ящер Питерский";
@@ -128,7 +128,7 @@ public class VariableNamesTheme {
 
     //сотни равны?
     boolean isHundredsEqual = true;
-    System.out.println("сотни равны? = " + hasHundredsEqual);
+    System.out.println("сотни равны? = " + isHundredsEqual);
 
     //компьютер включен?
     boolean isComputerOn = false;
