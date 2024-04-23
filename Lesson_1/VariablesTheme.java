@@ -9,44 +9,44 @@ public class VariablesTheme {
     System.out.println("1. Вывод характеристик компьютера");
 
     //Количество процессорных ядер
-    byte amountOfCpuCores = 4;
-    System.out.println("Количество процессорных ядер = " + amountOfCpuCores);
+    byte amountCpuCores = 4;
+    System.out.println("Количество процессорных ядер = " + amountCpuCores);
 
     //Частота процессора
-    short freqOfCpu = 2200;
-    System.out.println("Частота процессора = " + freqOfCpu + " МГц");
+    short freqCpu = 2200;
+    System.out.println("Частота процессора = " + freqCpu + " МГц");
 
     //количество модулей оперативной памяти
-    int amountOfRamModules = 8;
-    System.out.println("количество модулей оперативной памяти = " + amountOfRamModules + " шт.");
+    int amountRamModules = 8;
+    System.out.println("количество модулей оперативной памяти = " + amountRamModules + " шт.");
 
     //объём оперативной памяти общий
-    long amountOfRamTotal = 32768;
-    System.out.println("объём оперативной памяти общий = " + amountOfRamTotal + " МБ");
+    long amountRamTotal = 32768;
+    System.out.println("объём оперативной памяти общий = " + amountRamTotal + " МБ");
 
     //частота оперативной памяти
-    float freqOfRam = 5000f;
-    System.out.println("частота оперативной памяти = " + freqOfRam + " МГц");
+    float freqRam = 5000f;
+    System.out.println("частота оперативной памяти = " + freqRam + " МГц");
 
     //емкость жесткого диска
-    double capacityOfHdd = 1024;
-    System.out.println("емкость жесткого диска = " + capacityOfHdd + " Гб");
+    double capacityHdd = 1024;
+    System.out.println("емкость жесткого диска = " + capacityHdd + " Гб");
 
     //индекс материнской платы
-    char indexOfMotherboard = 'A';
-    System.out.println("индекс материнской платы = " + indexOfMotherboard);
+    char motherboardIndex = 'A';
+    System.out.println("индекс материнской платы = " + motherboardIndex);
 
     //материнская плата серверного типа?
-    boolean isMotherboardServerType = false;
-    System.out.println("материнская плата серверного типа? = " + isMotherboardServerType);
+    boolean isMotherboardTypeServer = false;
+    System.out.println("материнская плата серверного типа? = " + isMotherboardTypeServer);
 
     System.out.println("\n2. Расчет стоимости товара со скидкой");
 
-    int priceOfPen = 100;
-    int priceOfBook = 200;
+    int penPrice = 100;
+    int bookPrice = 200;
     double discount = 0.11;
 
-    int totalPriceWithoutDiscount = priceOfBook + priceOfPen;
+    int totalPriceWithoutDiscount = bookPrice + penPrice;
     double sumOfDiscount = (double) totalPriceWithoutDiscount * discount;
     double totalPriceWithDiscount = totalPriceWithoutDiscount - sumOfDiscount;
 
@@ -151,39 +151,39 @@ public class VariablesTheme {
     int number = 123;
 
     //количество сотен
-    int amountOfHundreds = number / 100;
+    int amountHundreds = number / 100;
 
     //количество десятков
-    int amountOfTens = number % 100 / 10;
+    int amountTens = number % 100 / 10;
 
     //количество единиц
-    int amountOfOnes = number % 100 % 10;
+    int amountOnes = number % 100 % 10;
 
     //сумма цифр числа
-    int sumOfDigits = amountOfHundreds + amountOfTens + amountOfOnes;
+    int sumOfDigits = amountHundreds + amountTens + amountOnes;
 
     //произведение чисел
-    int productOfDigits = amountOfHundreds * amountOfTens * amountOfOnes;
+    int productOfDigits = amountHundreds * amountTens * amountOnes;
 
     System.out.println("Число " + number + " содержит:");
-    System.out.println("  сотен - " + amountOfHundreds);
-    System.out.println("  десятков - " + amountOfTens);
-    System.out.println("  сотен - " + amountOfOnes);
+    System.out.println("  сотен - " + amountHundreds);
+    System.out.println("  десятков - " + amountTens);
+    System.out.println("  единиц - " + amountOnes);
     System.out.println("Сумма его цифр = " + sumOfDigits);
     System.out.println("Произведение = " + productOfDigits);
 
     System.out.println("\n9. Вывод времени");
 
-    int amountOfSeconds = 86399;
+    int amountSeconds = 86399;
 
     //количество часов
-    int hours = amountOfSeconds / 3600;
+    int hours = amountSeconds / 3600;
 
     //количество минут
-    int minutes = amountOfSeconds % 3600 / 60;
+    int minutes = amountSeconds % 3600 / 60;
 
     //количество секунд
-    int seconds = amountOfSeconds % 60;
+    int seconds = amountSeconds % 60;
 
     System.out.println(hours + ":" + minutes + ":" + seconds);
   }
