@@ -3,3 +3,4 @@ lib/
 out/
 *.DS_Store
 *.iml
+startjava_checks.xml
