@@ -57,8 +57,8 @@ public class VariableNamesTheme {
         System.out.println("число нулей = " + numberZeros);
 
         // уникальное число
-        int uniqNumber = 11;
-        System.out.println("уникальное число = " + uniqNumber);
+        int uniqueNumber = 11;
+        System.out.println("уникальное число = " + uniqueNumber);
 
         // случайное число
         int randomNumber = 16;
