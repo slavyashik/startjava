@@ -1,41 +1,49 @@
-import java.util.Scanner;
+import java.util.Random;
 
+/**
+* Урок 1.
+*/
 public class Calculator {
-    public static void main(String[] args) {
-        int firstNumber = 4;
-        int secondNumber = 3;
-        int result;
-        char sign;
-        Scanner inputSign = new Scanner(System.in);
+  /**
+  * Калькулятор.
+  */
+  public static void main(String[] args) {
+    Random random = new Random();
+    int firstNumber = random.nextInt(1, 10);
+    int secondNumber = random.nextInt(1, 10);
+    int signNumber = random.nextInt(1, 60);
+    int result = 0;
+    char sign = '+';
 
-        System.out.print("Какую операцию выполнить: ");
-        sign = inputSign.nextLine().charAt(0);
-
-        if (sign == '+') {
-            result = firstNumber + secondNumber;
-            System.out.println(firstNumber + " " + sign + " " + secondNumber + " = " + result);
-        } else if (sign == '-') {
-            result = firstNumber - secondNumber;
-            System.out.println(firstNumber + " " + sign + " " + secondNumber + " = " + result);
-        } else if (sign == '*') {
-            result = firstNumber * secondNumber;
-            System.out.println(firstNumber + " " + sign + " " + secondNumber + " = " + result);
-        } else if (sign == '/') {
-            result = firstNumber / secondNumber;
-            System.out.println(firstNumber + " " + sign + " " + secondNumber + " = " + result);
-        } else if (sign == '%') {
-            result = firstNumber % secondNumber;
-            System.out.println(firstNumber + " " + sign + " " + secondNumber + " = " + result);
-        } else if (sign == '^') {
-            result = firstNumber;
-
-            for (int i = 1; i < secondNumber; i++) {
-                result = result * firstNumber;
-            }
-
-            System.out.println(firstNumber + " " + sign + " " + secondNumber + " = " + result);
-        } else {
-            System.out.println("Неизвестная операция");
-        }
+    if (signNumber > 50) {
+      sign = '-';
+    } else if (signNumber > 40) {
+      sign = '*';
+    } else if (signNumber > 30) {
+      sign = '/';
+    } else if (signNumber > 20) {
+      sign = '%';
+    } else if (signNumber > 10) {
+      sign = '^';
     }
+
+    if (sign == '+') {
+      result = firstNumber + secondNumber;
+    } else if (sign == '-') {
+      result = firstNumber - secondNumber;
+    } else if (sign == '*') {
+      result = firstNumber * secondNumber;
+    } else if (sign == '/') {
+      result = firstNumber / secondNumber;
+    } else if (sign == '%') {
+      result = firstNumber % secondNumber;
+    } else {
+      result = firstNumber;
+      for (int i = 1; i < secondNumber; i++) {
+        result = result * firstNumber;
+      }
+    }
+
+    System.out.println(firstNumber + " " + sign + " " + secondNumber + " = " + result);
+  }
 }
