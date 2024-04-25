@@ -17,14 +17,20 @@ public class Calculator {
 
         if (signNumber > 50) {
             result = firstNumber - secondNumber;
+            sign = '-';
         } else if (signNumber > 40) {
             result = firstNumber * secondNumber;
+            sign = '*';
         } else if (signNumber > 30) {
             result = firstNumber / secondNumber;
+            sign = '/';
         } else if (signNumber > 20) {
             result = firstNumber % secondNumber;
+            sign = '%';
         } else if (signNumber > 10) {
             result = firstNumber;
+            sign = '^';
+
             for (int i = 1; i < secondNumber; i++) {
                 result *= firstNumber;
             }
