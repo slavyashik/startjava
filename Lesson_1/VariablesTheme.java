@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 /**
  * Урок 1.
  */
@@ -42,17 +44,17 @@ public class VariablesTheme {
 
         System.out.println("\n2. Расчет стоимости товара со скидкой");
 
-        int penPrice = 100;
-        int bookPrice = 200;
-        double discount = 0.11;
+        var penPrice = new BigDecimal("105.5");
+        var bookPrice = new BigDecimal("235.83");
+        var discount = new BigDecimal("0.11");
 
-        int totalPriceWithoutDiscount = bookPrice + penPrice;
-        double sumDiscount = (double) totalPriceWithoutDiscount * discount;
-        double totalPrice = totalPriceWithoutDiscount - sumDiscount;
+        var totalPriceWithoutDiscount = penPrice.add(bookPrice);
+        var sumDiscount = totalPriceWithoutDiscount.multiply(discount);
+        var totalPrice = totalPriceWithoutDiscount.subtract(sumDiscount);
 
-        System.out.println("общая стоимость товаров без скидки = " + totalPriceWithoutDiscount);
-        System.out.println("сумма скидки = " + sumDiscount);
-        System.out.println("общая стоимость товаров со скидкой = " + totalPrice);
+        System.out.printf("общая стоимость товаров без скидки = %.2f%n", totalPriceWithoutDiscount);
+        System.out.printf("сумма скидки = %.2f%n", sumDiscount);
+        System.out.printf("общая стоимость товаров со скидкой = %.2f%n", totalPrice);
 
         System.out.println("\n3. Вывод слова JAVA");
 
@@ -63,71 +65,68 @@ public class VariablesTheme {
 
         System.out.println("\n4. Вывод min и max значений целых числовых типов");
 
-        byte firstNumber = 127;
-        short secondNumber = 32767;
-        int thirdNumber = 2147483647;
-        long fourthNumber = 9223372036854775807L;
+        byte maxByte = 127;
+        short maxShort = 32767;
+        int maxInt = 2147483647;
+        long maxLong = 9223372036854775807L;
 
-        System.out.println(firstNumber);
-        System.out.println(++firstNumber);
-        System.out.println(--firstNumber + "\n");
+        System.out.println(maxByte);
+        System.out.println(++maxByte);
+        System.out.println(--maxByte + "\n");
 
-        System.out.println(secondNumber);
-        System.out.println(++secondNumber);
-        System.out.println(--secondNumber + "\n");
+        System.out.println(maxShort);
+        System.out.println(++maxShort);
+        System.out.println(--maxShort + "\n");
 
-        System.out.println(thirdNumber);
-        System.out.println(++thirdNumber);
-        System.out.println(--thirdNumber + "\n");
+        System.out.println(maxInt);
+        System.out.println(++maxInt);
+        System.out.println(--maxInt + "\n");
 
-        System.out.println(fourthNumber);
-        System.out.println(++fourthNumber);
-        System.out.println(--fourthNumber);
+        System.out.println(maxLong);
+        System.out.println(++maxLong);
+        System.out.println(--maxLong);
 
         System.out.println("\n5. Перестановка значений переменных");
 
-        int firstDigit = 2;
-        int secondDigit = 5;
+        int a = 2;
+        int b = 5;
 
-        System.out.println("Исходные значения: " + firstDigit + " и " + secondDigit);
+        System.out.println("Исходные значения: " + a + " и " + b);
 
-        // с помощью третьей переменной
-        int temp = firstDigit;
-        firstDigit = secondDigit;
-        secondDigit = temp;
+        int swap = a;
+        a = b;
+        b = swap;
 
         System.out.println("\nПерестановка с помощью третьей переменной.");
-        System.out.println("Результат: " + firstDigit + " и " + secondDigit);
+        System.out.println("Результат: " + a + " и " + b);
 
-        // с помощью арифметической операции
-        firstDigit = firstDigit + secondDigit;
-        secondDigit = firstDigit - secondDigit;
-        firstDigit = firstDigit - secondDigit;
+        a += b;
+        b = a - b;
+        a -= b;
 
         System.out.println("\nПерестановка с помощью арифметической операции.");
-        System.out.println("Результат: " + firstDigit + " и " + secondDigit);
+        System.out.println("Результат: " + a + " и " + b);
 
-        // с помощью побитовой операции
-        firstDigit = firstDigit ^ secondDigit;
-        secondDigit = secondDigit ^ firstDigit;
-        firstDigit = firstDigit ^ secondDigit;
+        a ^= b;
+        b ^= a;
+        a ^= b;
 
         System.out.println("\nПерестановка с помощью побитовой операции.");
-        System.out.println("Результат: " + firstDigit + " и " + secondDigit);
+        System.out.println("Результат: " + a + " и " + b);
 
         System.out.println("\n6. Вывод символов и их кодов");
 
-        char charOne = '$';
-        char charTwo = '*';
-        char charThree = '@';
-        char charFour = '|';
-        char charFive = '~';
+        char dollar = '$';
+        char asterisk = '*';
+        char atSign = '@';
+        char verticalBar = '|';
+        char tilde = '~';
 
-        System.out.println((int) charOne + " " + charOne);
-        System.out.println((int) charTwo + " " + charTwo);
-        System.out.println((int) charThree + " " + charThree);
-        System.out.println((int) charFour + " " + charFour);
-        System.out.println((int) charFive + " " + charFive);
+        System.out.println((int) dollar + " " + dollar);
+        System.out.println((int) asterisk + " " + asterisk);
+        System.out.println((int) atSign + " " + atSign);
+        System.out.println((int) verticalBar + " " + verticalBar);
+        System.out.println((int) tilde + " " + tilde);
 
         System.out.println("\n7. Вывод в консоль ASCII-арт Дюка");
 
@@ -139,30 +138,20 @@ public class VariablesTheme {
 
         System.out.println("    " + slash + backSlash);
         System.out.println("   " + slash + "  " + backSlash);
-        System.out.println("  " + slash + underscore + leftParenthesis + " " + rightParenthesis +
-                backSlash);
+        System.out.println("  " + slash + underscore + leftParenthesis +
+                " " + rightParenthesis + backSlash);
         System.out.println(" " + slash + "      " + backSlash);
-        System.out.println(slash + "" + underscore + "" + underscore + "" + underscore +
-                "" + underscore + "" + slash + "" + backSlash + "" + underscore + "" + underscore +
-                "" + backSlash);
+        System.out.println("" + slash + underscore + underscore +
+                underscore + underscore + slash + backSlash +
+                underscore + underscore + backSlash);
 
         System.out.println("\n8. Вывод количества сотен, десятков и единиц числа");
 
         int number = 123;
-
-        // количество сотен
         int amountHundreds = number / 100;
-
-        // количество десятков
-        int amountTens = number % 100 / 10;
-
-        // количество единиц
-        int amountOnes = number % 100 % 10;
-
-        // сумма цифр числа
+        int amountTens = number / 10 % 10;
+        int amountOnes = number % 10;
         int sumOfDigits = amountHundreds + amountTens + amountOnes;
-
-        // произведение чисел
         int productOfDigits = amountHundreds * amountTens * amountOnes;
 
         System.out.println("Число " + number + " содержит:");
@@ -175,16 +164,10 @@ public class VariablesTheme {
         System.out.println("\n9. Вывод времени");
 
         int amountSeconds = 86399;
+        int hh = amountSeconds / 3600;
+        int mm = amountSeconds % 3600 / 60;
+        int ss = amountSeconds % 60;
 
-        // количество часов
-        int hours = amountSeconds / 3600;
-
-        // количество минут
-        int minutes = amountSeconds % 3600 / 60;
-
-        // количество секунд
-        int seconds = amountSeconds % 60;
-
-        System.out.println(hours + ":" + minutes + ":" + seconds);
+        System.out.println(hh + ":" + mm + ":" + ss);
     }
 }

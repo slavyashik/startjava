@@ -4,28 +4,26 @@ import java.util.Random;
  * Урок 1.
  */
 public class RpsGameFormatting {
-    /**
-     * Игра Камень-Ножницы-Бумага.
-     */
+    // Игра Камень-Ножницы-Бумага
     public static void main(String[] args) throws InterruptedException {
         String rock = "✊";
         String scissors = "✌\uFE0F";
         String paper = "✋";
-        Random random = new Random();
-        int choiceNumber;
 
         // Ход первого игрока
-        String firstPlayer = "HEL";
-        choiceNumber = random.nextInt(1, 100);
-        String firstPlayerSign = rock;
+        String name1 = "HEL";
+        Random r = new Random();
+        int position1 = r.nextInt(1, 100);
+        String sign1 = rock;
 
-        if (choiceNumber > 66) {
-            firstPlayerSign = paper;
-        } else if (choiceNumber > 33) {
-            firstPlayerSign = scissors;
+
+        if (position1 > 66) {
+            sign1 = paper;
+        } else if (position1 > 33) {
+            sign1 = scissors;
         }
 
-        System.out.println("Ход " + firstPlayer + ": ");
+        System.out.println("Ход " + name1 + ": ");
 
         for (int i = 0; i < 5; i++) {
             System.out.print(rock + "\r");
@@ -36,22 +34,22 @@ public class RpsGameFormatting {
             Thread.sleep(100);
         }
 
-        System.out.println(firstPlayerSign);
+        System.out.println(sign1);
 
         // Ход второго игрока
-        String secondPlayer = "WALLE";
-        choiceNumber = random.nextInt(1, 100);
-        String secondPlayerSign = rock;
+        String name2 = "WALLE";
+        int position2 = r.nextInt(1, 100);
+        String sign2 = rock;
 
-        if (choiceNumber > 66) {
-            secondPlayerSign = paper;
+        if (position2 > 66) {
+            sign2 = paper;
         } else {
-            if (choiceNumber > 33) {
-                secondPlayerSign = scissors;
+            if (position2 > 33) {
+                sign2 = scissors;
             }
         }
 
-        System.out.println("Ход " + secondPlayer + ": ");
+        System.out.println("Ход " + name2 + ": ");
 
         for (int i = 0; i < 5; i++) {
             System.out.print(rock + "\r");
@@ -62,22 +60,21 @@ public class RpsGameFormatting {
             Thread.sleep(100);
         }
 
-        System.out.println(secondPlayerSign);
+        System.out.println(sign2);
 
-        if (firstPlayerSign.equals(secondPlayerSign)) {
+        if (sign1.equals(sign2)) {
             System.out.println("Победила дружба!");
             return;
         }
 
-        boolean hasFirstPlayerWon = firstPlayerSign.equals(rock) && 
-                secondPlayerSign.equals(scissors) || firstPlayerSign.equals(scissors) && 
-                secondPlayerSign.equals(paper) || firstPlayerSign.equals(paper) && 
-                secondPlayerSign.equals(rock);
+        boolean isEqualName1 = sign1.equals(rock) && sign2.equals(scissors) ||
+                sign1.equals(scissors) && sign2.equals(paper) ||
+                sign1.equals(paper) && sign2.equals(rock);
 
-        if (hasFirstPlayerWon) {
-            System.out.println("\nПобедил - " + firstPlayer);
+        if (isEqualName1) {
+            System.out.println("\nПобедил - " + name1);
         } else {
-            System.out.println("\nПобедил - " + secondPlayer);
+            System.out.println("\nПобедил - " + name2);
         }
     }
 }

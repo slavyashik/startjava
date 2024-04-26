@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 /**
  * Урок 1.
  */
@@ -44,130 +46,115 @@ public class IfElseStatementTheme {
 
         System.out.println("\n2. Поиск большего числа");
 
-        int firstNumber = 123;
-        int secondNumber = 321;
+        int a = 123;
+        int b = 321;
 
-        if (firstNumber > secondNumber) {
-            System.out.println("Число " + firstNumber + " больше " + secondNumber);
-        } else if (firstNumber == secondNumber) {
+        if (a > b) {
+            System.out.println("Число " + a + " больше " + b);
+        } else if (a == b) {
             System.out.println("Числа равны");
         } else {
-            System.out.println("Число " + secondNumber + " больше " + firstNumber);
+            System.out.println("Число " + b + " больше " + a);
         }
 
         System.out.println("\n3. Проверка числа");
-        int number = 113;
-        boolean isPositiveNumber = false;
-        boolean isEvenNumber = false;
 
-        if (number == 0) {
+        int checkedNumber = 113;
+        String resultPositive = "отрицательное";
+        String resultEven = "нечетным";
+
+        if (checkedNumber == 0) {
             System.out.println("Число равно 0");
         } else {
-            if (number % 2 == 0) {
-                isEvenNumber = true;
+            if (checkedNumber % 2 == 0) {
+                resultEven = "четным";
             }
 
-            if (number > 0) {
-                isPositiveNumber = true;
+            if (checkedNumber > 0) {
+                resultPositive = "положительное";
             }
 
-            System.out.println(number + " является " +
-                    (isPositiveNumber ? "положительным" : "отрицательным") + " и " + 
-                    (isEvenNumber ? "четным" : "нечетным"));
+            System.out.println(checkedNumber + " является " + resultPositive + " и " + resultEven);
         }
 
         System.out.println("\n4. Поиск одинаковых цифр в числах");
 
-        int numberOne = 123;
-        int numberTwo = 224;
+        a = 123;
+        b = 224;
 
-        int numberOneFirstDigit = numberOne / 100;
-        int numberOneSecondDigit = numberOne % 100 / 10;
-        int numberOneThirdDigit = numberOne % 100 % 10;
-        int numberTwoFirstDigit = numberTwo / 100;
-        int numberTwoSecondDigit = numberTwo % 100 / 10;
-        int numberTwoThirdDigit = numberTwo % 100 % 10;
+        int hundredsA = a / 100;
+        int tensA = a / 10 % 10;
+        int onesA = a % 10;
+        int hundredsB = b / 100;
+        int tensB = b / 10 % 10;
+        int onesB = b % 10;
 
-        if (numberOneFirstDigit != numberOneSecondDigit && 
-                numberOneFirstDigit != numberOneThirdDigit &&
-                numberTwoFirstDigit != numberTwoSecondDigit &&
-                numberTwoFirstDigit != numberTwoThirdDigit) {
-            System.out.println("Все цифры в разрядах двух чисел разные.");
+        boolean hasEqualDigit = hundredsA != hundredsB && tensA != tensB && onesA != onesB;
+
+        if (hasEqualDigit) {
+            System.out.println("Исходные числа: " + a + " и " + b);
+
+            if (onesA == onesB) {
+                System.out.println("Цифры " + onesA + " и " + onesB + " первого разряда равны");
+            }
+
+            if (tensA == tensB) {
+                System.out.println("Цифры " + tensA + " и " + tensB + " второго разряда равны");
+            }
+
+            if (hundredsA == hundredsB) {
+                System.out.println("Цифры " + hundredsA + " и " +
+                        hundredsB + " третьего разряда равны");
+            }
         } else {
-            boolean hasEqualDigit = false;
-            System.out.println("Исходные числа: " + numberOne + " и " + numberTwo);
-
-            if (numberOneThirdDigit == numberTwoThirdDigit) {
-                System.out.println("Цифры " + numberOneThirdDigit + " и " + numberTwoThirdDigit + 
-                        " первого разряда равны");
-                hasEqualDigit = true;
-            }
-
-            if (numberOneSecondDigit == numberTwoSecondDigit) {
-                System.out.println("Цифры " + numberOneSecondDigit + " и " + numberTwoSecondDigit + 
-                        " второго разряда равны");
-                hasEqualDigit = true;
-            }
-
-            if (numberOneFirstDigit == numberTwoFirstDigit) {
-                System.out.println("Цифры " + numberOneFirstDigit + " и " + numberTwoFirstDigit + 
-                        " третьего разряда равны");
-                hasEqualDigit = true;
-            }
-
-            if (!hasEqualDigit) {
-                System.out.println("Равных цифр нет.");
-            }
+            System.out.println("Все цифры в разрядах двух чисел разные.");
         }
 
         System.out.println("\n5. Определение символа по его коду");
 
         char charCode = '\u0057';
-        boolean isDigit = false;
-        boolean isChar = false;
-        boolean isBigChar = false;
-
-        if (charCode >= 'A' && charCode <= 'Z') {
-            isChar = true;
-            isBigChar = true;
-        } else if (charCode >= 'a' && charCode <= 'z') {
-            isChar = true;
-        } else if (charCode >= '0' && charCode <= '9') {
-            isDigit = true;
-        }
+        boolean isDigit = charCode >= '0' && charCode <= '9';
+        boolean isChar = (charCode >= 'A' && charCode <= 'Z') ||
+                (charCode >= 'a' && charCode <= 'z');
+        boolean isBigChar = charCode >= 'A' && charCode <= 'Z';
 
         if (!isChar && !isDigit) {
             System.out.println("Символ " + charCode + " не является ни буквой, ни цифрой.");
         } else if (isChar) {
-            System.out.println("Символ " + charCode + " является " + 
-                    (isBigChar ? "большой" : "маленькой") + " буквой");
+            if (isBigChar) {
+                System.out.println("Символ " + charCode + " является большой буквой");
+            } else {
+                System.out.println("Символ " + charCode + " является маленькой буквой");
+            }
         } else {
             System.out.println("Символ " + charCode + " является цифрой.");
         }
 
         System.out.println("\n6. Подсчет суммы вклада и начисленных банком %");
 
-        int amountDeposit = 301000;
-        double annualIncome = 0.0;
+        var amountDeposit = new BigDecimal("321123.59");
+        var annualIncome = new BigDecimal("0.0");
 
-        if (amountDeposit < 100000) {
-            annualIncome = (double) amountDeposit * 0.05;
-        } else if (annualIncome >= 100000 && annualIncome <= 300000) {
-            annualIncome = (double) amountDeposit * 0.07;
+        if (amountDeposit.compareTo(BigDecimal.valueOf(100000)) < 0) {
+            annualIncome = amountDeposit.multiply(BigDecimal.valueOf(0.05));
+        } else if (amountDeposit.compareTo(BigDecimal.valueOf(100000)) >= 0 &&
+                amountDeposit.compareTo(BigDecimal.valueOf(300000)) <= 0) {
+            annualIncome = amountDeposit.multiply(BigDecimal.valueOf(0.07));
         } else {
-            annualIncome = (double) amountDeposit * 0.1;
+            annualIncome = amountDeposit.multiply(BigDecimal.valueOf(0.1));
         }
 
-        System.out.println("Сумма вклада: " + amountDeposit);
-        System.out.println("Сумма начисленных % за год: " + (int) annualIncome);
-        System.out.println("Итоговая сумма с %: " + ((int) annualIncome + amountDeposit));
+        var amountDepositTotal = amountDeposit.add(annualIncome);
+
+        System.out.printf("Сумма вклада: %.2f%n", amountDeposit);
+        System.out.printf("Сумма начисленных %% за год: %.2f%n", annualIncome);
+        System.out.printf("Итоговая сумма с %%: %.2f%n", amountDepositTotal);
 
         System.out.println("\n7. Определение оценки по предметам");
 
         int percentHistory = 59;
         int percentProgramming = 92;
         int markHistory = 0;
-        int markProgramming = 0;
 
         if (percentHistory <= 60) {
             markHistory = 2;
@@ -179,6 +166,8 @@ public class IfElseStatementTheme {
             markHistory = 3;
         }
 
+        int markProgramming = 0;
+
         if (percentProgramming <= 60) {
             markProgramming = 2;
         } else if (percentProgramming > 91) {
@@ -189,22 +178,30 @@ public class IfElseStatementTheme {
             markProgramming = 3;
         }
 
-        int averageMarkScore = (markHistory + markProgramming) / 2;
-        int averagePercentScore = (percentHistory + percentProgramming) / 2;
+        int avgMarkScore = (markHistory + markProgramming) / 2;
+        int avgPercentScore = (percentHistory + percentProgramming) / 2;
 
         System.out.println("Оценка по истории: " + markHistory);
         System.out.println("Оценка по программированию: " + markProgramming);
-        System.out.println("Средний бал по предметам: " + averageMarkScore);
-        System.out.println("Средний процент по предметам: " + averagePercentScore);
+        System.out.println("Средний бал по предметам: " + avgMarkScore);
+        System.out.println("Средний процент по предметам: " + avgPercentScore);
 
         System.out.println("\n8. Расчет годовой прибыли");
 
-        int incomePerMonth = 13000;
-        int priceOfRent = 5000;
-        int costOfProduction = 9000;
-        int incomePerYear = (incomePerMonth - priceOfRent - costOfProduction) * 12;
+        var incomePerMonth = new BigDecimal("15025.233");
+        var priceOfRent = new BigDecimal("5123.018");
+        var costOfProduction = new BigDecimal("9001.729");
 
-        System.out.println("Прибыль за год: " + (incomePerYear == 0 ? ""
-                : (incomePerYear > 0 ? "+" : "")) + incomePerYear / 1000 + " 000" + " руб.");
+        var incomePerYear = incomePerMonth.subtract(priceOfRent)
+                .subtract(costOfProduction)
+                .multiply(BigDecimal.valueOf(12));
+
+        String sign = "";
+
+        if (incomePerYear.compareTo(BigDecimal.ZERO) > 0) {
+            sign = "+";
+        }
+
+        System.out.printf("Прибыль за год: %s%.2f руб.", sign, incomePerYear);
     }
 }
