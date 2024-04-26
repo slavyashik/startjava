@@ -43,11 +43,10 @@ public class RpsGameFormatting {
 
         if (position2 > 66) {
             sign2 = paper;
-        } else {
-            if (position2 > 33) {
-                sign2 = scissors;
-            }
+        } else if (position2 > 33) {
+            sign2 = scissors;
         }
+
 
         System.out.println("Ход " + name2 + ": ");
 
