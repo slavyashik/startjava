@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Урок 1.
@@ -10,35 +11,27 @@ public class VariablesTheme {
     public static void main(String[] args) {
         System.out.println("1. Вывод характеристик компьютера");
 
-        // Количество процессорных ядер
         byte amountCpuCores = 4;
         System.out.println("Количество процессорных ядер = " + amountCpuCores);
 
-        // Частота процессора
         short cpuFrequency = 2200;
         System.out.println("Частота процессора = " + cpuFrequency + " МГц");
 
-        // количество модулей оперативной памяти
         int amountRamModules = 8;
         System.out.println("количество модулей оперативной памяти = " + amountRamModules + " шт.");
 
-        // объём оперативной памяти общий
         long amountRamTotal = 32768;
         System.out.println("объём оперативной памяти общий = " + amountRamTotal + " МБ");
 
-        // частота оперативной памяти
         float ramFrequency = 5000f;
         System.out.println("частота оперативной памяти = " + ramFrequency + " МГц");
 
-        // емкость жесткого диска
         double hddCapacity = 1024;
         System.out.println("емкость жесткого диска = " + hddCapacity + " Гб");
 
-        // индекс материнской платы
         char motherboardIndex = 'A';
         System.out.println("индекс материнской платы = " + motherboardIndex);
 
-        // материнская плата серверного типа?
         boolean isMotherboardTypeServer = false;
         System.out.println("материнская плата серверного типа? = " + isMotherboardTypeServer);
 
@@ -49,7 +42,8 @@ public class VariablesTheme {
         var discount = new BigDecimal("0.11");
 
         var totalPriceWithoutDiscount = penPrice.add(bookPrice);
-        var sumDiscount = totalPriceWithoutDiscount.multiply(discount);
+        var sumDiscount = totalPriceWithoutDiscount.multiply(discount)
+                .setScale(2, RoundingMode.HALF_UP);
         var totalPrice = totalPriceWithoutDiscount.subtract(sumDiscount);
 
         System.out.printf("общая стоимость товаров без скидки = %.2f%n", totalPriceWithoutDiscount);
@@ -141,9 +135,8 @@ public class VariablesTheme {
         System.out.println("  " + slash + underscore + leftParenthesis +
                 " " + rightParenthesis + backSlash);
         System.out.println(" " + slash + "      " + backSlash);
-        System.out.println("" + slash + underscore + underscore +
-                underscore + underscore + slash + backSlash +
-                underscore + underscore + backSlash);
+        System.out.println("" + slash + underscore + underscore + underscore + underscore +
+                slash + backSlash + underscore + underscore + backSlash);
 
         System.out.println("\n8. Вывод количества сотен, десятков и единиц числа");
 

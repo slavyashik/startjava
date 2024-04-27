@@ -11,11 +11,9 @@ public class RpsGameFormatting {
         String paper = "✋";
 
         // Ход первого игрока
-        String name1 = "HEL";
         Random r = new Random();
         int position1 = r.nextInt(1, 100);
         String sign1 = rock;
-
 
         if (position1 > 66) {
             sign1 = paper;
@@ -23,6 +21,7 @@ public class RpsGameFormatting {
             sign1 = scissors;
         }
 
+        String name1 = "HEL";
         System.out.println("Ход " + name1 + ": ");
 
         for (int i = 0; i < 5; i++) {
@@ -37,7 +36,6 @@ public class RpsGameFormatting {
         System.out.println(sign1);
 
         // Ход второго игрока
-        String name2 = "WALLE";
         int position2 = r.nextInt(1, 100);
         String sign2 = rock;
 
@@ -47,7 +45,7 @@ public class RpsGameFormatting {
             sign2 = scissors;
         }
 
-
+        String name2 = "WALLE";
         System.out.println("Ход " + name2 + ": ");
 
         for (int i = 0; i < 5; i++) {

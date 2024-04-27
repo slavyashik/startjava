@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Урок 1.
@@ -11,9 +12,6 @@ public class IfElseStatementTheme {
         System.out.println("1. Перевод псевдокода на язык Java");
 
         boolean maleGender = true;
-        int age = 32;
-        double growth = 1.99;
-
 
         if (!maleGender) {
             System.out.println("Женщина");
@@ -21,13 +19,17 @@ public class IfElseStatementTheme {
             System.out.println("Мужик");
         }
 
+        int age = 32;
+
         if (age > 18) {
             System.out.println("Взрослый Мужик");
         } else {
             System.out.println("пока не мужик");
         }
 
-        if (growth < 1.8) {
+        double height = 1.99;
+
+        if (height < 1.8) {
             System.out.println("Теннисист");
         } else {
             System.out.println("Баскетболист");
@@ -60,12 +62,13 @@ public class IfElseStatementTheme {
         System.out.println("\n3. Проверка числа");
 
         int checkedNumber = 113;
-        String resultPositive = "отрицательное";
-        String resultEven = "нечетным";
 
         if (checkedNumber == 0) {
             System.out.println("Число равно 0");
         } else {
+            String resultPositive = "отрицательное";
+            String resultEven = "нечетным";
+
             if (checkedNumber % 2 == 0) {
                 resultEven = "четным";
             }
@@ -89,9 +92,9 @@ public class IfElseStatementTheme {
         int tensB = b / 10 % 10;
         int onesB = b % 10;
 
-        boolean hasEqualDigit = hundredsA != hundredsB && tensA != tensB && onesA != onesB;
+        boolean hasEqualDigits = hundredsA != hundredsB && tensA != tensB && onesA != onesB;
 
-        if (hasEqualDigit) {
+        if (hasEqualDigits) {
             System.out.println("Исходные числа: " + a + " и " + b);
 
             if (onesA == onesB) {
@@ -114,18 +117,15 @@ public class IfElseStatementTheme {
 
         char charCode = '\u0057';
         boolean isDigit = charCode >= '0' && charCode <= '9';
-        boolean isChar = (charCode >= 'A' && charCode <= 'Z') ||
-                (charCode >= 'a' && charCode <= 'z');
+        boolean isChar = (charCode >= 'a' && charCode <= 'z');
         boolean isBigChar = charCode >= 'A' && charCode <= 'Z';
 
         if (!isChar && !isDigit) {
             System.out.println("Символ " + charCode + " не является ни буквой, ни цифрой.");
         } else if (isChar) {
-            if (isBigChar) {
-                System.out.println("Символ " + charCode + " является большой буквой");
-            } else {
-                System.out.println("Символ " + charCode + " является маленькой буквой");
-            }
+            System.out.println("Символ " + charCode + " является маленькой буквой");
+        } else if (isBigChar) {
+            System.out.println("Символ " + charCode + " является большой буквой");
         } else {
             System.out.println("Символ " + charCode + " является цифрой.");
         }
@@ -134,15 +134,17 @@ public class IfElseStatementTheme {
 
         var amountDeposit = new BigDecimal("321123.59");
         var annualIncome = new BigDecimal("0.0");
+        double discount = 0.1;
 
         if (amountDeposit.compareTo(BigDecimal.valueOf(100000)) < 0) {
-            annualIncome = amountDeposit.multiply(BigDecimal.valueOf(0.05));
+            discount = 0.05;
         } else if (amountDeposit.compareTo(BigDecimal.valueOf(100000)) >= 0 &&
                 amountDeposit.compareTo(BigDecimal.valueOf(300000)) <= 0) {
-            annualIncome = amountDeposit.multiply(BigDecimal.valueOf(0.07));
-        } else {
-            annualIncome = amountDeposit.multiply(BigDecimal.valueOf(0.1));
+            discount = 0.07;
         }
+
+        annualIncome = amountDeposit.multiply(BigDecimal.valueOf(discount))
+                .setScale(2, RoundingMode.HALF_UP);
 
         var amountDepositTotal = amountDeposit.add(annualIncome);
 
@@ -152,34 +154,30 @@ public class IfElseStatementTheme {
 
         System.out.println("\n7. Определение оценки по предметам");
 
-        int percentHistory = 59;
-        int percentProgramming = 92;
-        int markHistory = 0;
+        double percentHistory = 59;
+        double markHistory = 2;
 
-        if (percentHistory <= 60) {
-            markHistory = 2;
-        } else if (percentHistory > 91) {
+        if (percentHistory > 91) {
             markHistory = 5;
         } else if (percentHistory > 73) {
             markHistory = 4;
-        } else {
+        } else if (percentHistory > 60) {
             markHistory = 3;
         }
 
-        int markProgramming = 0;
+        double markProgramming = 2;
+        double percentProgramming = 92;
 
-        if (percentProgramming <= 60) {
-            markProgramming = 2;
-        } else if (percentProgramming > 91) {
+        if (percentProgramming > 91) {
             markProgramming = 5;
         } else if (percentProgramming > 73) {
             markProgramming = 4;
-        } else {
+        } else if (percentProgramming > 60) {
             markProgramming = 3;
         }
 
-        int avgMarkScore = (markHistory + markProgramming) / 2;
-        int avgPercentScore = (percentHistory + percentProgramming) / 2;
+        double avgMarkScore = (markHistory + markProgramming) / 2;
+        double avgPercentScore = (percentHistory + percentProgramming) / 2;
 
         System.out.println("Оценка по истории: " + markHistory);
         System.out.println("Оценка по программированию: " + markProgramming);
@@ -194,7 +192,8 @@ public class IfElseStatementTheme {
 
         var incomePerYear = incomePerMonth.subtract(priceOfRent)
                 .subtract(costOfProduction)
-                .multiply(BigDecimal.valueOf(12));
+                .multiply(BigDecimal.valueOf(12))
+                .setScale(2, RoundingMode.HALF_UP);
 
         String sign = "";
 
@@ -202,6 +201,6 @@ public class IfElseStatementTheme {
             sign = "+";
         }
 
-        System.out.printf("Прибыль за год: %s%.2f руб.", sign, incomePerYear);
+        System.out.printf("Прибыль за год: %s%f руб.", sign, incomePerYear);
     }
 }
