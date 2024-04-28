@@ -11,9 +11,7 @@ public class CyclesTheme {
         int startRange = -10;
         int endRange = 21;
 
-
-        System.out.printf("В отрезке [%d, %d] ",
-                startRange, endRange);
+        System.out.printf("В отрезке [%d, %d] ", startRange, endRange);
 
         int sumEvenNumbers = 0;
         int sumOddNumbers = 0;
@@ -28,7 +26,7 @@ public class CyclesTheme {
             startRange++;
         } while (startRange <= endRange);
 
-        System.out.printf("сумма четных чисел = %d, а нечетных = %d%n", 
+        System.out.printf("сумма четных чисел = %d, а нечетных = %d%n",
                 sumEvenNumbers, sumOddNumbers);
 
         System.out.println("\n2. Вывод чисел в порядке убывания");
