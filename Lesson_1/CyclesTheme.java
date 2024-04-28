@@ -10,25 +10,26 @@ public class CyclesTheme {
 
         int startRange = -10;
         int endRange = 21;
+
+
+        System.out.printf("В отрезке [%d, %d] ",
+                startRange, endRange);
+
         int sumEvenNumbers = 0;
-        int sumOtherNumbers = 0;
-        int counter = 0;
+        int sumOddNumbers = 0;
 
         do {
             if (startRange % 2 == 0) {
                 sumEvenNumbers += startRange;
             } else {
-                sumOtherNumbers += startRange;
+                sumOddNumbers += startRange;
             }
 
-            counter++;
             startRange++;
         } while (startRange <= endRange);
 
-        startRange -= counter;
-
-        System.out.printf("В отрезке [%d, %d] сумма четных чисел = %d, а нечетных = %d%n",
-                startRange, endRange, sumEvenNumbers, sumOtherNumbers);
+        System.out.printf("сумма четных чисел = %d, а нечетных = %d%n", 
+                sumEvenNumbers, sumOddNumbers);
 
         System.out.println("\n2. Вывод чисел в порядке убывания");
 
@@ -62,8 +63,7 @@ public class CyclesTheme {
         while (initNumber > 0) {
             int lastDigit = initNumber % 10;
             System.out.print(lastDigit);
-
-            sumDigits += initNumber % 10;
+            sumDigits += lastDigit;
             initNumber /= 10;
         }
 
@@ -119,24 +119,24 @@ public class CyclesTheme {
 
         System.out.println();
 
-        int stringCounter = 5;
-        int columnCounter = 5;
+        int stringCount = 5;
+        int columnCount = 5;
 
-        while (columnCounter != 0) {
-            while (stringCounter > 0) {
+        while (columnCount != 0) {
+            while (stringCount > 0) {
                 System.out.print('#');
-                stringCounter--;
+                stringCount--;
             }
 
             System.out.println();
-            columnCounter--;
-            stringCounter = columnCounter;
+            columnCount--;
+            stringCount = columnCount;
         }
 
-
         System.out.println();
-        int stringCount = 0;
-        int columnCount = 0;
+
+        stringCount = 0;
+        columnCount = 0;
         int charsInStringCounter = 0;
 
         do {
@@ -162,11 +162,11 @@ public class CyclesTheme {
         System.out.printf("%-8s %-10s %-10s%n", "DECIMAL", "CHARACTER", "DESCRIPTION");
 
         for (int i = 33; i <= 47; i += 2) {
-            System.out.printf("%4d %9c      %-1s%n", i, (char) i, Character.getName(i));
+            System.out.printf("%4d %9c           %-5s%n", i, i, Character.getName(i));
         }
 
         for (int i = 97; i <= 121; i += 2) {
-            System.out.printf("%4d %9c      %-1s%n", i, (char) i, Character.getName(i));
+            System.out.printf("%4d %9c           %-5s%n", i, i, Character.getName(i));
         }
 
         System.out.println("\n8. Проверка, является ли число палиндромом");
@@ -189,25 +189,25 @@ public class CyclesTheme {
 
         initNumber = 123321;
         initNumberCopy = initNumber;
-        int sumFirstPart = 0;
-        int sumLastPart = 0;
+        int sumLeftPart = 0;
+        int sumRightPart = 0;
 
         for (int i = 0; i < 6; i++) {
             int lastDigit = initNumberCopy % 10;
 
             if (i < 3) {
-                sumLastPart += lastDigit;
+                sumRightPart += lastDigit;
             } else {
-                sumFirstPart += lastDigit;
+                sumLeftPart += lastDigit;
             }
 
             initNumberCopy /= 10;
         }
-        checkResult = sumLastPart == sumFirstPart ? "является" : "не является";
+        checkResult = sumRightPart == sumLeftPart ? "является" : "не является";
 
         System.out.printf("Число %d %s счастливым%n", initNumber, checkResult);
         System.out.printf("Сумма цифр %d = %d, а сумма %d = %d", initNumber / 1000,
-                sumFirstPart, initNumber % 1000, sumLastPart);
+                sumLeftPart, initNumber % 1000, sumRightPart);
 
         System.out.println("\n\n10. Отображение таблицы умножения Пифагора");
 

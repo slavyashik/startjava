@@ -9,35 +9,29 @@ public class Calculator {
      */
     public static void main(String[] args) {
         Random random = new Random();
-        int firstNumber = random.nextInt(1, 10);
-        int secondNumber = random.nextInt(1, 10);
-        int signNumber = random.nextInt(1, 60);
+        int arg1 = random.nextInt(1, 10);
+        int arg2 = random.nextInt(1, 10);
         int result = 0;
         char sign = '+';
 
-        if (signNumber > 50) {
-            result = firstNumber - secondNumber;
-            sign = '-';
-        } else if (signNumber > 40) {
-            result = firstNumber * secondNumber;
-            sign = '*';
-        } else if (signNumber > 30) {
-            result = firstNumber / secondNumber;
-            sign = '/';
-        } else if (signNumber > 20) {
-            result = firstNumber % secondNumber;
-            sign = '%';
-        } else if (signNumber > 10) {
-            result = firstNumber;
-            sign = '^';
+        if (sign == '+') {
+            result = arg1 + arg2;
+        } else if (sign == '-') {
+            result = arg1 - arg2;
+        } else if (sign == '*') {
+            result = arg1 * arg2;
+        } else if (sign == '/') {
+            result = arg1 / arg2;
+        } else if (sign == '%') {
+            result = arg1 % arg2;
+        } else if (sign == '^') {
+            result = arg1;
 
-            for (int i = 1; i < secondNumber; i++) {
-                result *= firstNumber;
+            for (int i = 1; i < arg2; i++) {
+                result *= arg1;
             }
-        } else {
-            result = firstNumber + secondNumber;
         }
 
-        System.out.println(firstNumber + " " + sign + " " + secondNumber + " = " + result);
+        System.out.println(arg1 + " " + sign + " " + arg2 + " = " + result);
     }
 }

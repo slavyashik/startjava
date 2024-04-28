@@ -66,15 +66,16 @@ public class IfElseStatementTheme {
         if (checkedNumber == 0) {
             System.out.println("Число равно 0");
         } else {
-            String resultPositive = "отрицательное";
             String resultEven = "нечетным";
 
             if (checkedNumber % 2 == 0) {
                 resultEven = "четным";
             }
 
+            String resultPositive = "отрицательным";
+
             if (checkedNumber > 0) {
-                resultPositive = "положительное";
+                resultPositive = "положительным";
             }
 
             System.out.println(checkedNumber + " является " + resultPositive + " и " + resultEven);
@@ -92,7 +93,7 @@ public class IfElseStatementTheme {
         int tensB = b / 10 % 10;
         int onesB = b % 10;
 
-        boolean hasEqualDigits = hundredsA != hundredsB && tensA != tensB && onesA != onesB;
+        boolean hasEqualDigits = hundredsA != hundredsB || tensA != tensB || onesA != onesB;
 
         if (hasEqualDigits) {
             System.out.println("Исходные числа: " + a + " и " + b);
@@ -117,17 +118,18 @@ public class IfElseStatementTheme {
 
         char charCode = '\u0057';
         boolean isDigit = charCode >= '0' && charCode <= '9';
-        boolean isChar = (charCode >= 'a' && charCode <= 'z');
-        boolean isBigChar = charCode >= 'A' && charCode <= 'Z';
+        boolean isUpperCase = charCode >= 'A' && charCode <= 'Z';
+        boolean isLowerCase = charCode >= 'a' && charCode <= 'z';
 
-        if (!isChar && !isDigit) {
-            System.out.println("Символ " + charCode + " не является ни буквой, ни цифрой.");
-        } else if (isChar) {
-            System.out.println("Символ " + charCode + " является маленькой буквой");
-        } else if (isBigChar) {
-            System.out.println("Символ " + charCode + " является большой буквой");
-        } else {
+
+        if (isDigit) {
             System.out.println("Символ " + charCode + " является цифрой.");
+        } else if (isUpperCase) {
+            System.out.println("Символ " + charCode + " является большой буквой");
+        } else if (isLowerCase) {
+            System.out.println("Символ " + charCode + " является маленькой буквой");
+        } else {
+            System.out.println("Символ " + charCode + " не является ни буквой, ни цифрой.");
         }
 
         System.out.println("\n6. Подсчет суммы вклада и начисленных банком %");
