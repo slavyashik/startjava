@@ -15,22 +15,18 @@ public class GuessNumberTest {
         System.out.print("Введите имя второго игрока: ");
         Player player2 = new Player(scanner.next());
 
-        boolean isActiveGame = true;
-
-        while (isActiveGame) {
+        while (true) {
             GuessNumber game = new GuessNumber(player1, player2);
-            game.startGame();
+            game.start();
 
-            while (true) {
+            String choice = "";
+            while (!choice.equals("yes") && !choice.equals("no")) {
                 System.out.println("Хотите продолжить игру? [yes/no]: ");
-                String choice = scanner.next();
+                choice = scanner.next();
+            }
 
-                if (choice.equals("yes")) {
-                    break;
-                } else if (choice.equals("no")) {
-                    isActiveGame = false;
-                    break;
-                }
+            if (choice.equals("no")) {
+                break;
             }
         }
     }

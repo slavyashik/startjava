@@ -11,12 +11,10 @@ public class Jaeger {
     private int armor;
     private int speed;
 
-    public Jaeger() {
-        this("", "", "", 0, 0, 0, 0, 0);
-    }
+    public Jaeger() {}
 
-    public Jaeger(String modelName, String mark, String origin,
-                  float height, float weight, int strength, int armor, int speed) {
+    public Jaeger(String modelName, String mark, String origin, float height, 
+            float weight, int strength, int armor, int speed) {
         this.modelName = modelName;
         this.mark = mark;
         this.origin = origin;
@@ -110,7 +108,6 @@ public class Jaeger {
     public String toString() {
         return String.format("Jaeger \"%s\" parameters are:\nMark: %s\nOrigin: %s\n" +
                 "Height: %.2f m.\nWeight: %.3f tons\nStrength: %d\nArmor: %d\nSpeed: %d\n",
-                getModelName(), getMark(), getOrigin(), getHeight(), getWeight(),
-                getStrength(), getArmor(), getSpeed());
+                modelName, mark, origin, height, weight, strength, armor, speed);
     }
 }
