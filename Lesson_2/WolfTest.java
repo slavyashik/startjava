@@ -10,8 +10,9 @@ public class WolfTest {
         wolf.setWeight(22.2);
         wolf.setColor("black");
 
-        System.out.println(wolf.getNickName() + " is a " + wolf.getGender() + " and age is " + wolf.getAge() +
-                ". His color is " + wolf.getColor() + " and he weights " + wolf.getWeight() + " kgs");
+        System.out.println(wolf.getNickName() + " is a " + wolf.getGender() + 
+                " and age is " + wolf.getAge() + ". His color is " + wolf.getColor() + 
+                " and he weights " + wolf.getWeight() + " kgs");
 
         wolf.walk();
         wolf.sit();
