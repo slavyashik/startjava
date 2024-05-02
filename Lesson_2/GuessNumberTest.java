@@ -20,11 +20,10 @@ public class GuessNumberTest {
             GuessNumber game = new GuessNumber(player1, player2);
             game.start();
 
-            choice = "";
-            while (!choice.equals("yes") && !choice.equals("no")) {
+            do {
                 System.out.println("Хотите продолжить игру? [yes/no]: ");
                 choice = scanner.next();
-            }
+            } while (!choice.equals("yes") && !choice.equals("no"));
         }
     }
 }

@@ -23,11 +23,10 @@ public class CalculatorTest {
 
             calculator.calculate(arg1, sign, arg2);
 
-            choice = "";
-            while (!choice.equals("yes") && !choice.equals("no")) {
+            do {
                 System.out.println("Хотите продолжить вычисления? [yes/no]: ");
                 choice = scanner.next();
-            }
+            } while (!choice.equals("yes") && !choice.equals("no"));
         }
     }
 }
