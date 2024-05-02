@@ -7,12 +7,11 @@ import java.util.Scanner;
 public class GuessNumber {
     private Player player1;
     private Player player2;
-
     private int secretNumber;
+    Scanner scanner = new Scanner(System.in);
 
     public GuessNumber(Player player1, Player player2) {
         Random random = new Random();
-
         this.player1 = player1;
         this.player2 = player2;
         this.secretNumber = random.nextInt(100) + 1;
@@ -20,31 +19,31 @@ public class GuessNumber {
 
     void start() {
         while (true) {
-            playerGuess(player1);
-            if (checkGuess(player1)) {
+            guessNumber(player1);
+            if (isGuessed(player1)) {
                 break;
             }
 
-            playerGuess(player2);
-            if (checkGuess(player2)) {
+            guessNumber(player2);
+            if (isGuessed(player2)) {
                 break;
             }
         }
     }
 
-    private void playerGuess(Player player) {
-        Scanner scanner = new Scanner(System.in);
-
+    private void guessNumber(Player player) {
         System.out.print(player.getName() + " предполагает: ");
         player.setNumber(scanner.nextInt());
         System.out.println();
     }
 
-    private boolean checkGuess(Player player) {
+    private boolean isGuessed(Player player) {
         if (player.getNumber() == secretNumber) {
             System.out.println(player.getName() + " угадал число " + player.getNumber());
             return true;
-        } else if (player.getNumber() > secretNumber) {
+        }
+
+        if (player.getNumber() > secretNumber) {
             System.out.println("Число " + player.getNumber() + " больше того, что загадал компьютер");
         } else {
             System.out.println("Число " + player.getNumber() + " меньше того, что загадал компьютер");

@@ -10,7 +10,8 @@ public class CalculatorTest {
 
         System.out.println("Добро пожаловать в калькулятор!");
 
-        while (true) {
+        String choice = "";
+        while (!choice.equals("no")) {
             System.out.print("Введите первое число: ");
             double arg1 = scanner.nextDouble();
 
@@ -22,14 +23,10 @@ public class CalculatorTest {
 
             calculator.calculate(arg1, sign, arg2);
 
-            String choice;
+            choice = "";
             while (!choice.equals("yes") && !choice.equals("no")) {
                 System.out.println("Хотите продолжить вычисления? [yes/no]: ");
                 choice = scanner.next();
-            }
-
-            if (choice.equals("no")) {
-                break;
             }
         }
     }
