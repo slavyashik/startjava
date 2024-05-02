@@ -1,3 +1,5 @@
+package src.com.startjava.lesson_1.base;
+
 /**
  * Урок 1.
  */

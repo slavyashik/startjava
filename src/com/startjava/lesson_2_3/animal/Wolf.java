@@ -1,3 +1,5 @@
+package src.com.startjava.lesson_2_3.animal;
+
 /**
  * Урок 2.
  */
