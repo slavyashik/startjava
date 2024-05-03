@@ -4,3 +4,5 @@ out/
 *.DS_Store
 *.iml
 startjava_checks.xml
+options
+optionsj
