@@ -1,4 +1,4 @@
-package src.com.startjava.lesson_2_3.person;
+package src.com.startjava.lesson_2_3_4.person;
 
 /**
  * Урок 2.

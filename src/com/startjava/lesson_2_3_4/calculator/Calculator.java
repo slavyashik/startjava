@@ -1,4 +1,4 @@
-package src.com.startjava.lesson_2_3.calculator;
+package src.com.startjava.lesson_2_3_4.calculator;
 
 /**
  * Урок 2.
