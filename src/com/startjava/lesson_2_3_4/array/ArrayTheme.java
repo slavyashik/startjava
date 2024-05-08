@@ -1,6 +1,5 @@
 package src.com.startjava.lesson_2_3_4.array;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -20,10 +19,10 @@ public class ArrayTheme {
         int[] reverseNumbers = {7, 2, 6, 1, 5, 3, 4};
         System.out.print("До реверса: ");
         printArray(reverseNumbers);
-        int len = reverseNumbers.length - 1;
+        int len = reverseNumbers.length;
 
-        for (int i = 0; i <= len / 2; i++, len--) {
-            int temp = reverseNumbers[len];
+        for (int i = 0; i <= len / 2; i++) {
+            int temp = reverseNumbers[--len];
             reverseNumbers[len] = reverseNumbers[i];
             reverseNumbers[i] = temp;
         }
@@ -42,7 +41,7 @@ public class ArrayTheme {
         }
 
         int factorial = 1;
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i < len - 1; i++) {
             System.out.print(multipliers[i] + (i < 8 ? " * " : " = "));
             factorial *= multipliers[i];
         }
@@ -84,12 +83,11 @@ public class ArrayTheme {
         System.out.println("\n4. Вывод алфавита лесенкой");
 
         char[] alphabet = new char[26];
+        int len = alphabet.length;
 
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < len; i++) {
             alphabet[i] = (char) ('A' + i);
         }
-
-        int len = alphabet.length;
 
         for (int i = 0; i < len; i++) {
             for (int j = len - 1; j >= len - i - 1; j--) {
@@ -148,25 +146,23 @@ public class ArrayTheme {
         int tries = 0;
         int mistakes = 0;
         Scanner scanner = new Scanner(System.in);
-        StringBuilder secretWord = new StringBuilder(getSecretWord());
+        String secretWord = receiveSecretWord();
         StringBuilder maskedWord = new StringBuilder("*".repeat(secretWord.length()));
-        StringBuilder invalidChars = new StringBuilder();
+        StringBuilder wrongChars = new StringBuilder();
         StringBuilder guessedChars = new StringBuilder();
 
         do {
-            drawHangman(mistakes);
-            System.out.println("Количество попыток: " + tries);
             System.out.println("Загаданное слово: " + maskedWord);
             System.out.print("Введите букву: ");
             String guess = scanner.next();
             System.out.println();
 
-            if (invalidChars.indexOf(guess) >= 0 || guessedChars.indexOf(guess) >= 0) {
+            if (wrongChars.indexOf(guess) >= 0 || guessedChars.indexOf(guess) >= 0) {
                 System.out.println("Буква уже была");
                 continue;
             }
 
-            if (secretWord.indexOf(guess) >= 0) {
+            if (secretWord.contains(guess)) {
                 tries++;
                 StringBuilder temp = new StringBuilder(secretWord);
 
@@ -174,7 +170,6 @@ public class ArrayTheme {
                     int index = temp.indexOf(guess);
                     maskedWord.setCharAt(index, guess.charAt(0));
                     temp.setCharAt(index, ' ');
-                    ;
                     System.out.println(maskedWord);
                 }
 
@@ -186,22 +181,24 @@ public class ArrayTheme {
             } else {
                 mistakes++;
                 tries++;
-                invalidChars.append(guess);
-                System.out.println("Ошибочные буквы: " + invalidChars);
+                wrongChars.append(guess);
+                System.out.println("Ошибочные буквы: " + wrongChars);
 
                 if (mistakes == 6) {
                     System.out.println("Вы проиграли.");
                     System.out.println("Загаданное слово: " + secretWord);
-                    drawHangman(mistakes);
                 }
             }
 
-            if (secretWord.compareTo(maskedWord) == 0) {
-                System.out.println("Поздравляем, вы выйграли!");
+            if (secretWord.contentEquals(maskedWord)) {
+                System.out.println("Поздравляем, вы выиграли!");
                 System.out.println("Итоговое количество попыток: " + tries);
                 System.out.println("Загаданное слово: " + secretWord);
                 break;
             }
+
+            drawHangman(mistakes);
+            System.out.println("Количество попыток: " + tries);
         } while (mistakes < 6);
     }
 
@@ -226,78 +223,79 @@ public class ArrayTheme {
         System.out.println();
     }
 
-    private static String getSecretWord() {
-        int wordIndex = (int) (Math.random() * 10);
+    private static String receiveSecretWord() {
         String[] words = {"аппарат", "завтрак", "коробочка", "отражение", "респектор",
                 "продукция", "маневр", "устройство", "формулировка", "театраль"};
-        return words[wordIndex];
+        int index = (int) (Math.random() * words.length);
+        return words[index];
     }
 
     private static void drawHangman(int mistakes) {
-        switch (mistakes) {
-            case 0 -> System.out.println("""
-                    ___________               
-                    |   \\    |
-                    |  
-                    |  
-                    |  
-                    |
-                    ~~~~~~~~~~~
-                    """);
-            case 1 -> System.out.println("""
-                    ___________               
-                    |   \\    |
-                    |   ()
-                    |  
-                    |  
-                    |
-                    ~~~~~~~~~~~
-                    """);
-            case 2 -> System.out.println("""
-                    ___________                
-                    |   \\    |
-                    |   ()
-                    |   []
-                    |  
-                    |
-                    ~~~~~~~~~~~
-                    """);
-            case 3 -> System.out.println("""
-                    ___________                
-                    |   \\    |
-                    |   ()
-                    |  /[]
-                    |  
-                    |
-                    ~~~~~~~~~~~
-                    """);
-            case 4 -> System.out.println("""
-                    ___________                
-                    |   \\    |
-                    |   ()
-                    |  /[]\\
-                    |  
-                    |
-                    ~~~~~~~~~~~
-                    """);
-            case 5 -> System.out.println("""
-                    ___________                
-                    |   \\    |
-                    |   ()
-                    |  /[]\\
-                    |  /   
-                    |
-                    ~~~~~~~~~~~
-                    """);
-            case 6 -> System.out.println("""
-                    ___________                
-                    |   \\    |
-                    |   ()
-                    |  /[]\\
-                    |  /  \\
-                    |
-                    ~~~~~~~~~~~
-                    """);
-        }
+        String[] hangmanMessages = {
+                """
+        ___________               
+        |   \\    |
+        |  
+        |  
+        |  
+        |
+        ~~~~~~~~~~~
+        """,
+                """
+        ___________               
+        |   \\    |
+        |   ()
+        |  
+        |  
+        |
+        ~~~~~~~~~~~
+        """,
+                """
+        ___________                
+        |   \\    |
+        |   ()
+        |   []
+        |  
+        |
+        ~~~~~~~~~~~
+        """,
+                """
+        ___________                
+        |   \\    |
+        |   ()
+        |  /[]
+        |  
+        |
+        ~~~~~~~~~~~
+        """,
+                """
+        ___________                
+        |   \\    |
+        |   ()
+        |  /[]\\
+        |  
+        |
+        ~~~~~~~~~~~
+        """,
+                """
+        ___________                
+        |   \\    |
+        |   ()
+        |  /[]\\
+        |  /   
+        |
+        ~~~~~~~~~~~
+        """,
+                """
+        ___________                
+        |   \\    |
+        |   ()
+        |  /[]\\
+        |  /  \\
+        |
+        ~~~~~~~~~~~
+        """};
+
+        System.out.println(hangmanMessages[mistakes]);
     }
 }
