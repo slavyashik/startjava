@@ -16,5 +16,4 @@ public class MyFirstApp {
         System.out.println(console.nextLine());
         System.out.println("Удачи");
     }
-
 }

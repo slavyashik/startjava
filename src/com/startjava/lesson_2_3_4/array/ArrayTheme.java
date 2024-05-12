@@ -42,26 +42,13 @@ public class ArrayTheme {
             multipliers[i] = i;
         }
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите число: ");
-        int inputNumber = scanner.nextInt();
-        int index = 0;
-
-        for (int i = 0; i < len; i++) {
-            if (multipliers[i] == inputNumber) {
-                index = i;
-            }
-        }
-
-        System.out.printf("Результат вычисления %d!:\n", inputNumber);
-
+        int multiplierFactorial = len - 2;
         int factorial = 1;
-        for (int i = 1; i <= multipliers[index]; i++) {
-            System.out.print(multipliers[i] + (i < multipliers[index] ? " * " : " = "));
-            factorial *= multipliers[i];
-        }
 
-        System.out.println(factorial);
+        for (int i = 1; i <= multiplierFactorial; i++) {
+            factorial *= i;
+            System.out.print(multipliers[i] + (i < multiplierFactorial ? " * " : " = " + factorial));
+        }
     }
 
     static void removeItems() {
@@ -158,13 +145,19 @@ public class ArrayTheme {
     static void startHangman() {
         System.out.println("\n6. \"Игра Виселица\"");
 
-        int mistakes = 0;
         Scanner scanner = new Scanner(System.in);
         String secretWord = receiveSecretWord();
         StringBuilder maskedWord = new StringBuilder("*".repeat(secretWord.length()));
-        StringBuilder wrongChars = new StringBuilder();
-        String[] hangmanParts = {"___\n|  \\\n", "|  ()\n", "| /", "[]", "\\\n", "| /", "  \\\n|"};
-        int maxMistakes = hangmanParts.length - 1;
+        StringBuilder wrongLetters = new StringBuilder();
+        String[] gallows = {"__________",
+                "|    |    ",
+                "|   ( )   ",
+                "|  /[ ]\\ ",
+                "| / [ ] \\",
+                "|  /   \\ ",
+                "| /     \\"
+        };
+        int mistakes = gallows.length - 1;
 
         do {
             System.out.println("Загаданное слово: " + maskedWord);
@@ -172,17 +165,17 @@ public class ArrayTheme {
             String guess = scanner.next();
             System.out.println();
 
-            if(!guess.matches("[а-яА-Я]")) {
-                System.out.println("Нужно ввести русско-язычную букву.");
-                continue;
-            }
-
             if (guess.length() > 1) {
                 System.out.println("Нельзя вводить больше одной буквы за раз.");
                 continue;
             }
 
-            if (wrongChars.indexOf(guess) >= 0 || maskedWord.indexOf(guess) >= 0) {
+            if (!guess.matches("[а-яА-Я]")) {
+                System.out.println("Нужно ввести кириллическую букву.");
+                continue;
+            }
+
+            if (wrongLetters.indexOf(guess) >= 0 || maskedWord.indexOf(guess) >= 0) {
                 System.out.println("Буква уже была.");
                 continue;
             }
@@ -196,22 +189,22 @@ public class ArrayTheme {
                         break;
                     }
                     maskedWord.setCharAt(index++, guess.charAt(0));
-                    System.out.println(maskedWord);
                 } while (true);
 
-                if (mistakes > 0) {
-                    mistakes--;
+                System.out.println(maskedWord);
+
+                if (mistakes < gallows.length - 1) {
+                    mistakes++;
                 }
             } else {
-                mistakes++;
-                wrongChars.append(guess);
-                System.out.println("Ошибочные буквы: " + wrongChars);
+                mistakes--;
+                wrongLetters.append(guess);
+                System.out.println("Ошибочные буквы: " + wrongLetters);
 
-                if (mistakes == maxMistakes) {
+                if (mistakes == 0) {
                     System.out.println("Вы проиграли.");
                     System.out.println("Загаданное слово: " + secretWord);
                 }
-
             }
 
             if (secretWord.contentEquals(maskedWord)) {
@@ -219,21 +212,22 @@ public class ArrayTheme {
                 break;
             }
 
-            for (int i = 0; i <= mistakes; i++) {
-                System.out.print(hangmanParts[i]);
+            int gallowsPrintCount = gallows.length - mistakes;
+            for (int i = 0; i < gallowsPrintCount; i++) {
+                System.out.println(gallows[i]);
             }
+
+            System.out.println("\nКоличество оставшихся попыток: " + mistakes);
             System.out.println();
-        } while (mistakes < maxMistakes);
-        System.out.println("Количество оставшихся попыток: " + (maxMistakes - mistakes));
-        System.out.println();
+        } while (mistakes > 0);
     }
 
     static void printLikeMachine() throws InterruptedException {
         System.out.println("\n7. Вывод текста с эффектом пишущей машинки");
 
-        String quote1 = ("Java - это C++, из которого убрали все пистолеты, ножи и дубинки. \n- James Gosling");
-        String quote2 = ("Чтобы написать чистый код, мы сначала пишем " +
-                "грязный код, затем рефакторим его. \n- Robert Martin");
+        String quote1 = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки. \n- James Gosling";
+        String quote2 = "Чтобы написать чистый код, мы сначала пишем " +
+                "грязный код, затем рефакторим его. \n- Robert Martin";
 
         printText(quote1);
         printText(quote2);

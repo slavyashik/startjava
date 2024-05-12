@@ -123,7 +123,6 @@ public class IfElseStatementTheme {
         boolean isUpperCase = charCode >= 'A' && charCode <= 'Z';
         boolean isLowerCase = charCode >= 'a' && charCode <= 'z';
 
-
         if (isDigit) {
             System.out.println("Символ " + charCode + " является цифрой.");
         } else if (isUpperCase) {
