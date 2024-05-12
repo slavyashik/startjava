@@ -4,13 +4,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class ArrayTheme {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         reverseArray();
         factorial();
         removeItems();
         printAlphabet();
         fillUniqueNumbers();
         startHangman();
+        printLikeMachine();
     }
 
     static void reverseArray() {
@@ -36,17 +37,31 @@ public class ArrayTheme {
 
         int[] multipliers = new int[10];
         int len = multipliers.length;
+
         for (int i = 0; i < len; i++) {
             multipliers[i] = i;
         }
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите число: ");
+        int inputNumber = scanner.nextInt();
+        int index = 0;
+
+        for (int i = 0; i < len; i++) {
+            if (multipliers[i] == inputNumber) {
+                index = i;
+            }
+        }
+
+        System.out.printf("Результат вычисления %d!:\n", inputNumber);
+
         int factorial = 1;
-        for (int i = 1; i < len - 1; i++) {
-            System.out.print(multipliers[i] + (i < 8 ? " * " : " = "));
+        for (int i = 1; i <= multipliers[index]; i++) {
+            System.out.print(multipliers[i] + (i < multipliers[index] ? " * " : " = "));
             factorial *= multipliers[i];
         }
 
-        System.out.print(factorial);
+        System.out.println(factorial);
     }
 
     static void removeItems() {
@@ -66,17 +81,17 @@ public class ArrayTheme {
         double middleItem = randomItems[len / 2];
         System.out.printf("\nЧисло в средней ячейке: %.3f\n", middleItem);
 
-        int deletedItemsCount = 0;
+        int removedItemsCount = 0;
         for (int i = 0; i < len; i++) {
             if (randomItems[i] > middleItem) {
                 randomItems[i] = 0;
-                deletedItemsCount++;
+                removedItemsCount++;
             }
         }
 
         System.out.println("\nИзмененный массив: ");
         printItems(randomItems);
-        System.out.println("Количество обнуленных ячеек: " + deletedItemsCount);
+        System.out.println("Количество обнуленных ячеек: " + removedItemsCount);
     }
 
     static void printAlphabet() {
@@ -143,13 +158,13 @@ public class ArrayTheme {
     static void startHangman() {
         System.out.println("\n6. \"Игра Виселица\"");
 
-        int tries = 0;
         int mistakes = 0;
         Scanner scanner = new Scanner(System.in);
         String secretWord = receiveSecretWord();
         StringBuilder maskedWord = new StringBuilder("*".repeat(secretWord.length()));
         StringBuilder wrongChars = new StringBuilder();
-        StringBuilder guessedChars = new StringBuilder();
+        String[] hangmanParts = {"___\n|  \\\n", "|  ()\n", "| /", "[]", "\\\n", "| /", "  \\\n|"};
+        int maxMistakes = hangmanParts.length - 1;
 
         do {
             System.out.println("Загаданное слово: " + maskedWord);
@@ -157,49 +172,71 @@ public class ArrayTheme {
             String guess = scanner.next();
             System.out.println();
 
-            if (wrongChars.indexOf(guess) >= 0 || guessedChars.indexOf(guess) >= 0) {
-                System.out.println("Буква уже была");
+            if(!guess.matches("[а-яА-Я]")) {
+                System.out.println("Нужно ввести русско-язычную букву.");
+                continue;
+            }
+
+            if (guess.length() > 1) {
+                System.out.println("Нельзя вводить больше одной буквы за раз.");
+                continue;
+            }
+
+            if (wrongChars.indexOf(guess) >= 0 || maskedWord.indexOf(guess) >= 0) {
+                System.out.println("Буква уже была.");
                 continue;
             }
 
             if (secretWord.contains(guess)) {
-                tries++;
-                StringBuilder temp = new StringBuilder(secretWord);
+                int index = 0;
 
-                while (temp.indexOf(guess) >= 0) {
-                    int index = temp.indexOf(guess);
-                    maskedWord.setCharAt(index, guess.charAt(0));
-                    temp.setCharAt(index, ' ');
+                do {
+                    index = secretWord.indexOf(guess.charAt(0), index);
+                    if (index < 0) {
+                        break;
+                    }
+                    maskedWord.setCharAt(index++, guess.charAt(0));
                     System.out.println(maskedWord);
-                }
+                } while (true);
 
                 if (mistakes > 0) {
                     mistakes--;
                 }
-
-                guessedChars.append(guess);
             } else {
                 mistakes++;
-                tries++;
                 wrongChars.append(guess);
                 System.out.println("Ошибочные буквы: " + wrongChars);
 
-                if (mistakes == 6) {
+                if (mistakes == maxMistakes) {
                     System.out.println("Вы проиграли.");
                     System.out.println("Загаданное слово: " + secretWord);
                 }
+
             }
 
             if (secretWord.contentEquals(maskedWord)) {
                 System.out.println("Поздравляем, вы выиграли!");
-                System.out.println("Итоговое количество попыток: " + tries);
-                System.out.println("Загаданное слово: " + secretWord);
                 break;
             }
 
-            drawHangman(mistakes);
-            System.out.println("Количество попыток: " + tries);
-        } while (mistakes < 6);
+            for (int i = 0; i <= mistakes; i++) {
+                System.out.print(hangmanParts[i]);
+            }
+            System.out.println();
+        } while (mistakes < maxMistakes);
+        System.out.println("Количество оставшихся попыток: " + (maxMistakes - mistakes));
+        System.out.println();
+    }
+
+    static void printLikeMachine() throws InterruptedException {
+        System.out.println("\n7. Вывод текста с эффектом пишущей машинки");
+
+        String quote1 = ("Java - это C++, из которого убрали все пистолеты, ножи и дубинки. \n- James Gosling");
+        String quote2 = ("Чтобы написать чистый код, мы сначала пишем " +
+                "грязный код, затем рефакторим его. \n- Robert Martin");
+
+        printText(quote1);
+        printText(quote2);
     }
 
     private static void printArray(int[] array) {
@@ -230,72 +267,36 @@ public class ArrayTheme {
         return words[index];
     }
 
-    private static void drawHangman(int mistakes) {
-        String[] hangmanMessages = {
-                """
-        ___________               
-        |   \\    |
-        |  
-        |  
-        |  
-        |
-        ~~~~~~~~~~~
-        """,
-                """
-        ___________               
-        |   \\    |
-        |   ()
-        |  
-        |  
-        |
-        ~~~~~~~~~~~
-        """,
-                """
-        ___________                
-        |   \\    |
-        |   ()
-        |   []
-        |  
-        |
-        ~~~~~~~~~~~
-        """,
-                """
-        ___________                
-        |   \\    |
-        |   ()
-        |  /[]
-        |  
-        |
-        ~~~~~~~~~~~
-        """,
-                """
-        ___________                
-        |   \\    |
-        |   ()
-        |  /[]\\
-        |  
-        |
-        ~~~~~~~~~~~
-        """,
-                """
-        ___________                
-        |   \\    |
-        |   ()
-        |  /[]\\
-        |  /   
-        |
-        ~~~~~~~~~~~
-        """,
-                """
-        ___________                
-        |   \\    |
-        |   ()
-        |  /[]\\
-        |  /  \\
-        |
-        ~~~~~~~~~~~
-        """};
+    private static void printText(String quote) throws InterruptedException {
+        String[] words = quote.split("[^a-zA-Zа-яА-Я]+");
+        String longestWord = words[0];
+        String shortestWord = words[0];
 
-        System.out.println(hangmanMessages[mistakes]);
+        for (String word : words) {
+            if (word.length() < shortestWord.length()) {
+                shortestWord = word;
+            }
+
+            if (word.length() > longestWord.length()) {
+                longestWord = word;
+            }
+        }
+
+        int shortestWordIndex = quote.indexOf(shortestWord);
+        int longestWordEndIndex = quote.indexOf(longestWord) + longestWord.length();
+        int indexCounter = 0;
+
+        for (char c : quote.toCharArray()) {
+            if (indexCounter >= shortestWordIndex && indexCounter <= longestWordEndIndex) {
+                System.out.print(String.valueOf(c).toUpperCase());
+            } else {
+                System.out.print(c);
+            }
+
+            Thread.sleep(50);
+            indexCounter++;
+        }
+
+        System.out.println();
     }
 }
