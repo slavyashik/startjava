@@ -12,23 +12,20 @@ public class CalculatorTest {
 
         System.out.println("Добро пожаловать в калькулятор!");
 
-        String choice = "";
+        String choice = "yes";
         while (!choice.equals("no")) {
-            System.out.print("Введите первое число: ");
-            double arg1 = scanner.nextDouble();
+            if (choice.equals("yes")) {
+                System.out.print("Введите выражение: ");
+                String inputLine = scanner.nextLine();
 
-            System.out.print("Введите знак математической операции: ");
-            char sign = scanner.next().charAt(0);
+                double result = calculator.calculate(inputLine);
+                if (!Double.isNaN(result)) {
+                    System.out.println(inputLine + " = " + result);
+                }
+            }
 
-            System.out.print("Введите второе число: ");
-            double arg2 = scanner.nextDouble();
-
-            calculator.calculate(arg1, sign, arg2);
-
-            do {
-                System.out.println("Хотите продолжить вычисления? [yes/no]: ");
-                choice = scanner.next();
-            } while (!choice.equals("yes") && !choice.equals("no"));
+            System.out.print("\nХотите продолжить вычисления? [yes/no]: ");
+            choice = scanner.nextLine();
         }
     }
 }

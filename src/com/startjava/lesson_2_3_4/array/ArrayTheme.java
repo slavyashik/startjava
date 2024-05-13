@@ -42,12 +42,12 @@ public class ArrayTheme {
             multipliers[i] = i;
         }
 
-        int multiplierFactorial = len - 2;
+        int factorialNumber = len - 2;
         int factorial = 1;
 
-        for (int i = 1; i <= multiplierFactorial; i++) {
+        for (int i = 1; i <= factorialNumber; i++) {
             factorial *= i;
-            System.out.print(multipliers[i] + (i < multiplierFactorial ? " * " : " = " + factorial));
+            System.out.print(multipliers[i] + (i < factorialNumber ? " * " : " = " + factorial));
         }
     }
 

@@ -4,8 +4,12 @@ package src.com.startjava.lesson_2_3_4.calculator;
  * Урок 2.
  */
 public class Calculator {
-    public void calculate(double arg1, char sign, double arg2) {
+    public double calculate(String inputLine) {
         double result = 0;
+        String[] args = inputLine.split(" ");
+        int arg1 = Integer.parseInt(args[0]);
+        char sign = args[1].charAt(0);
+        int arg2 = Integer.parseInt(args[2]);
 
         switch (sign) {
             case '+':
@@ -18,22 +22,23 @@ public class Calculator {
                 result = arg1 * arg2;
                 break;
             case '/':
-                result = arg1 / arg2;
+                result = (double) arg1 / arg2;
                 break;
             case '%':
                 result = arg1 % arg2;
                 break;
             case '^':
-                result = arg1;
-                for (int i = 1; i < arg2; i++) {
-                    result *= arg1;
-                }
+                result = Math.pow(arg1, arg2);
                 break;
             default:
-                System.out.println("Введенная мат. операция не поддерживается.");
-                break;
+                System.out.println("Ошибка: знак " + sign + " не поддерживается.");
+                return Double.NaN;
         }
 
-        System.out.println("Результат вычисления = " + result);
+        if (result == (int) result) {
+            return (int) result;
+        } else {
+            return Math.round(result * 1000.0) / 1000.0;
+        }
     }
 }
