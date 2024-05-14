@@ -1,44 +1,37 @@
 package src.com.startjava.lesson_2_3_4.calculator;
 
-/**
- * Урок 2.
- */
 public class Calculator {
-    public double calculate(String inputLine) {
-        double result = 0;
-        String[] args = inputLine.split(" ");
-        int arg1 = Integer.parseInt(args[0]);
-        char sign = args[1].charAt(0);
-        int arg2 = Integer.parseInt(args[2]);
+    public static double calculate(String inputExpression) {
+        String[] args = inputExpression.split(" ");
 
-        switch (sign) {
-            case '+':
-                result = arg1 + arg2;
-                break;
-            case '-':
-                result = arg1 - arg2;
-                break;
-            case '*':
-                result = arg1 * arg2;
-                break;
-            case '/':
-                result = (double) arg1 / arg2;
-                break;
-            case '%':
-                result = arg1 % arg2;
-                break;
-            case '^':
-                result = Math.pow(arg1, arg2);
-                break;
-            default:
-                System.out.println("Ошибка: знак " + sign + " не поддерживается.");
-                return Double.NaN;
+        if (args.length > 3) {
+            throw new IllegalArgumentException("Ошибка: неверный формат выражения");
         }
 
-        if (result == (int) result) {
-            return (int) result;
-        } else {
-            return Math.round(result * 1000.0) / 1000.0;
+        int arg1;
+        int arg2;
+        char sign;
+
+        try {
+            arg1 = Integer.parseInt(args[0]);
+            arg2 = Integer.parseInt(args[2]);
+            sign = args[1].charAt(0);
+        } catch (NumberFormatException exception) {
+            throw new IllegalArgumentException("Ошибка: неверный формат чисел");
         }
+
+        if (arg1 <= 0 || arg2 <= 0) {
+            throw new IllegalArgumentException("Ошибка: числа должны быть положительными и целыми");
+        }
+
+        return switch (sign) {
+            case '+' -> arg1 + arg2;
+            case '-' -> arg1 - arg2;
+            case '*' -> arg1 * arg2;
+            case '/' -> (double) arg1 / arg2;
+            case '%' -> arg1 % arg2;
+            case '^' -> Math.pow(arg1, arg2);
+            default -> throw new IllegalArgumentException("Ошибка: знак " + sign + " не поддерживается");
+        };
     }
 }
