@@ -15,8 +15,8 @@ public class CalculatorTest {
                 String inputExpression = scanner.nextLine();
                 try {
                     printResult(Calculator.calculate(inputExpression), inputExpression);
-                } catch (RuntimeException exception) {
-                    System.out.println(exception.getMessage());
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
                 }
             }
 
@@ -27,12 +27,6 @@ public class CalculatorTest {
 
     private static void printResult(double result, String inputExpression) {
         DecimalFormat df = new DecimalFormat("#.###");
-
-        System.out.printf("%s = ", inputExpression);
-        if (result == (int) result) {
-            System.out.printf("%.0f", result);
-        } else {
-            System.out.printf("%s", df.format(result));
-        }
+        System.out.printf("%s = %s", inputExpression, df.format(result));
     }
 }
