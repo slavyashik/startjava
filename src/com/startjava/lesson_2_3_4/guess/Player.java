@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 public class Player {
     private String name;
-    private int[] numbers = new int[10];
+    public static final int MAX_ATTEMPTS = 10;
+    private int[] numbers = new int[MAX_ATTEMPTS];
     private int attempts;
 
     public Player(String name) {
@@ -15,12 +16,8 @@ public class Player {
         return name;
     }
 
-    void setName() {
-        this.name = name;
-    }
-
     void addNumber(int number) {
-        this.numbers[attempts++] = number;
+        numbers[attempts++] = number;
     }
 
     int getNumber() {

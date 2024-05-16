@@ -8,11 +8,11 @@ public class GuessNumberTest {
         System.out.println("Игра \"Угадай число\"");
 
         System.out.print("Введите имя первого игрока: ");
-        String playerName1 = scanner.nextLine();
+        String name1 = scanner.nextLine();
         System.out.print("Введите имя второго игрока: ");
-        String playerName2 = scanner.nextLine();
+        String name2 = scanner.nextLine();
 
-        GuessNumber game = new GuessNumber(playerName1, playerName2);
+        GuessNumber game = new GuessNumber(name1, name2);
         String choice = "yes";
 
         while (!choice.equals("no")) {
@@ -20,7 +20,7 @@ public class GuessNumberTest {
                 game.start();
             }
 
-            System.out.println("Хотите продолжить игру? [yes/no]: ");
+            System.out.println("\nХотите продолжить игру? [yes/no]: ");
             choice = scanner.next();
         }
     }

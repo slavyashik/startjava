@@ -8,26 +8,33 @@ public class GuessNumber {
     private Player player2;
     private int secretNumber;
     Scanner scanner = new Scanner(System.in);
+    private boolean isGameOver = false;
 
-    public GuessNumber(String playerName1, String playerName2) {
-        this.player1 = new Player(playerName1);
-        this.player2 = new Player(playerName2);
+    public GuessNumber(String name1, String name2) {
+        player1 = new Player(name1);
+        player2 = new Player(name2);
     }
 
     void start() {
         generateNumber();
-        System.out.println("Игра началась! У каждого игрока по 10 попыток.");
+        System.out.println("\nИгра началась! У каждого игрока по 10 попыток.\n");
 
-        while (hasAttempts(player1) && hasAttempts(player2)) {
-            guessNumber(player1);
-            if (isGuessed(player1)) {
-                break;
+        while (!isGameOver) {
+            if (hasAttempts(player1)) {
+                guessNumber(player1);
+                if (isGuessed(player1)) {
+                    break;
+                }
             }
 
-            guessNumber(player2);
-            if (isGuessed(player2)) {
-                break;
+            if (hasAttempts(player2)) {
+                guessNumber(player2);
+                if (isGuessed(player2)) {
+                    break;
+                }
             }
+
+            System.out.println();
         }
 
         printAllNumbers(player1);
@@ -38,7 +45,7 @@ public class GuessNumber {
 
     private void generateNumber() {
         Random random = new Random();
-        this.secretNumber = random.nextInt(100) + 1;
+        secretNumber = random.nextInt(100) + 1;
     }
 
     private void guessNumber(Player player) {
@@ -61,12 +68,14 @@ public class GuessNumber {
             System.out.println("Число " + guess + " меньше того, что загадал компьютер");
         }
 
+        System.out.println();
         return false;
     }
 
     private boolean hasAttempts(Player player) {
-        if (player.getAttempts() == 10) {
+        if (player.getAttempts() == Player.MAX_ATTEMPTS) {
             System.out.println("У " + player.getName() + " закончились попытки");
+            isGameOver = true;
             return false;
         }
 

@@ -1,36 +1,17 @@
 package src.com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
+    private static final int ARGS_LIMIT = 3;
+
     public static double calculate(String inputExpression) {
         String[] args = inputExpression.split(" ");
-        final int maxExpressionLength = 3;
 
-        if (args.length > maxExpressionLength) {
+        if (args.length > ARGS_LIMIT) {
             throw new IllegalArgumentException("Ошибка: неверный формат выражения");
         }
 
-        int arg1;
-        try {
-            arg1 = Integer.parseInt(args[0]);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Ошибка: Первый аргумент должен быть целым");
-        }
-
-        int arg2;
-        try {
-            arg2 = Integer.parseInt(args[2]);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Ошибка: Второй аргумент должен быть целым");
-        }
-
-        if (arg1 <= 0) {
-            throw new IllegalArgumentException("Ошибка: Первый аргумент должен быть положительным");
-        }
-
-        if (arg2 <= 0) {
-            throw new IllegalArgumentException("Ошибка: Второй аргумент должен быть положительным");
-        }
-
+        int arg1 = checkArg(args[0]);
+        int arg2 = checkArg(args[2]);
         char sign = args[1].charAt(0);
 
         return switch (sign) {
@@ -42,5 +23,21 @@ public class Calculator {
             case '^' -> Math.pow(arg1, arg2);
             default -> throw new IllegalArgumentException("Ошибка: знак " + sign + " не поддерживается");
         };
+    }
+
+    private static int checkArg(String arg) {
+        int number;
+
+        try {
+            number = Integer.parseInt(arg);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Ошибка: Аргументы должны быть целыми");
+        }
+
+        if (number <= 0) {
+            throw new IllegalArgumentException("Ошибка: Аргумент должны быть положительными");
+        }
+
+        return number;
     }
 }
