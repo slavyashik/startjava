@@ -3,6 +3,8 @@ package src.com.startjava.lesson_2_3_4.guess;
 import java.util.Arrays;
 
 public class Player {
+    private static final int START_RANGE = 0;
+    private static final int END_RANGE = 100;
     private String name;
     public static final int MAX_ATTEMPTS = 10;
     private int[] numbers = new int[MAX_ATTEMPTS];
@@ -18,7 +20,7 @@ public class Player {
     }
 
     void addNumber(int number) {
-        if (number > 0 && number <= 100) {
+        if (number > START_RANGE && number <= END_RANGE) {
             numbers[attempts++] = number;
         } else {
             throw new IllegalArgumentException("Ошибка: введенное число должно быть в интервале (0; 100]");

@@ -45,7 +45,7 @@ public class GuessNumber {
     }
 
     private void shufflePlayers() {
-        System.out.println("Определяю порядок игроков...");
+        System.out.println("\nОпределяю порядок игроков...");
 
         for (int i = PLAYERS_COUNT - 1; i > 0; i--) {
             int index = random.nextInt(i + 1);
@@ -115,7 +115,7 @@ public class GuessNumber {
             }
         }
     }
-    
+
     private boolean isGameEnded() {
         if (round == ROUND_COUNT) {
             int maxRoundsWon = 0;
