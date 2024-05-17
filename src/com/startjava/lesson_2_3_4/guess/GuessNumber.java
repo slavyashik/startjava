@@ -20,12 +20,12 @@ public class GuessNumber {
     }
 
     void start() {
+        shufflePlayers();
+
         do {
             isRoundOver = false;
             System.out.println("\nРаунд: " + ++round);
             generateNumber();
-            shufflePlayers();
-
             System.out.println("Игра началась! У каждого игрока по 10 попыток.\n");
 
             while (!isRoundOver) {
@@ -42,6 +42,19 @@ public class GuessNumber {
 
             printAllNumbers();
         } while (!isGameEnded());
+    }
+
+    private void shufflePlayers() {
+        System.out.println("Определяю порядок игроков...");
+
+        for (int i = PLAYERS_COUNT - 1; i > 0; i--) {
+            int index = random.nextInt(i + 1);
+            Player temp = players[i];
+            players[i] = players[index];
+            players[index] = temp;
+        }
+
+        System.out.println("Первым начнёт " + players[0].getName());
     }
 
     private void generateNumber() {
@@ -102,20 +115,7 @@ public class GuessNumber {
             }
         }
     }
-
-    private void shufflePlayers() {
-        System.out.println("Определяю порядок игроков...");
-
-        for (int i = PLAYERS_COUNT - 1; i > 0; i--) {
-            int index = random.nextInt(i + 1);
-            Player temp = players[i];
-            players[i] = players[index];
-            players[index] = temp;
-        }
-
-        System.out.println("Первым начнёт " + players[0].getName());
-    }
-
+    
     private boolean isGameEnded() {
         if (round == ROUND_COUNT) {
             int maxRoundsWon = 0;
