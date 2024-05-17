@@ -4,91 +4,150 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GuessNumber {
-    private Player player1;
-    private Player player2;
+    public static final int PLAYERS_COUNT = 3;
+    private static final int ROUND_COUNT = 3;
+    private Player[] players = new Player[PLAYERS_COUNT];
     private int secretNumber;
     Scanner scanner = new Scanner(System.in);
-    private boolean isGameOver = false;
+    private boolean isRoundOver;
+    private Random random = new Random();
+    private int round;
 
-    public GuessNumber(String name1, String name2) {
-        player1 = new Player(name1);
-        player2 = new Player(name2);
+    public GuessNumber(String[] names) {
+        for (int i = 0; i < PLAYERS_COUNT; i++) {
+            players[i] = new Player(names[i]);
+        }
     }
 
     void start() {
-        generateNumber();
-        System.out.println("\nИгра началась! У каждого игрока по 10 попыток.\n");
+        do {
+            isRoundOver = false;
+            System.out.println("\nРаунд: " + ++round);
+            generateNumber();
+            shufflePlayers();
 
-        while (!isGameOver) {
-            if (hasAttempts(player1)) {
-                guessNumber(player1);
-                if (isGuessed(player1)) {
-                    break;
+            System.out.println("Игра началась! У каждого игрока по 10 попыток.\n");
+
+            while (!isRoundOver) {
+                for (int i = 0; i < PLAYERS_COUNT; i++) {
+                    if (hasAttempts(players[i])) {
+                        guessNumber(players[i]);
+
+                        if (isGuessed(players[i])) {
+                            break;
+                        }
+                    }
                 }
             }
 
-            if (hasAttempts(player2)) {
-                guessNumber(player2);
-                if (isGuessed(player2)) {
-                    break;
-                }
-            }
-
-            System.out.println();
-        }
-
-        printAllNumbers(player1);
-        printAllNumbers(player2);
-        player1.clear();
-        player2.clear();
+            printAllNumbers();
+        } while (!isGameEnded());
     }
 
     private void generateNumber() {
-        Random random = new Random();
         secretNumber = random.nextInt(100) + 1;
     }
 
     private void guessNumber(Player player) {
-        System.out.print(player.getName() + " предполагает: ");
-        player.addNumber(scanner.nextInt());
+        boolean retry = true;
+        do {
+            System.out.print(player.getName() + " предполагает: ");
+            try {
+                player.addNumber(scanner.nextInt());
+                retry = false;
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        } while (retry);
     }
 
     private boolean isGuessed(Player player) {
         int guess = player.getNumber();
 
         if (guess == secretNumber) {
-            System.out.println("Игрок " + player.getName() + " угадал " +
+            System.out.println("\nИгрок " + player.getName() + " угадал " +
                     guess + " с " + player.getAttempts() + " попытки");
+            isRoundOver = true;
+            player.wonRound();
             return true;
         }
 
-        if (guess > secretNumber) {
-            System.out.println("Число " + guess + " больше того, что загадал компьютер");
-        } else {
-            System.out.println("Число " + guess + " меньше того, что загадал компьютер");
-        }
-
-        System.out.println();
+        System.out.printf("Число %d %s того, что загадал компьютер\n\n",
+                guess, guess > secretNumber ? "больше" : "меньше");
         return false;
     }
 
     private boolean hasAttempts(Player player) {
         if (player.getAttempts() == Player.MAX_ATTEMPTS) {
             System.out.println("У " + player.getName() + " закончились попытки");
-            isGameOver = true;
+            isRoundOver = true;
             return false;
         }
 
         return true;
     }
 
-    private void printAllNumbers(Player player) {
-        System.out.print("Числа введённые " + player.getName() + ": ");
+    private void printAllNumbers() {
+        System.out.println();
+        for (Player player : players) {
+            if (player.getAttempts() != 0) {
+                System.out.print("Числа введённые " + player.getName() + ": ");
 
-        for (int number : player.getNumbers()) {
-            System.out.print(number + " ");
+                for (int number : player.getNumbers()) {
+                    System.out.print(number + " ");
+                }
+
+                System.out.println();
+                player.clear();
+            }
+        }
+    }
+
+    private void shufflePlayers() {
+        System.out.println("Определяю порядок игроков...");
+
+        for (int i = PLAYERS_COUNT - 1; i > 0; i--) {
+            int index = random.nextInt(i + 1);
+            Player temp = players[i];
+            players[i] = players[index];
+            players[index] = temp;
         }
 
-        System.out.println();
+        System.out.println("Первым начнёт " + players[0].getName());
+    }
+
+    private boolean isGameEnded() {
+        if (round == ROUND_COUNT) {
+            int maxRoundsWon = 0;
+            int winnerIndex = 0;
+            boolean isDraw = false;
+
+            for (int i = 0; i < PLAYERS_COUNT; i++) {
+                int roundsWon = players[i].getRoundsWon();
+                if (roundsWon > maxRoundsWon) {
+                    maxRoundsWon = roundsWon;
+                    winnerIndex = i;
+                    isDraw = false;
+                } else if (roundsWon == maxRoundsWon) {
+                    isDraw = true;
+                }
+            }
+
+            System.out.printf("\nПо итогам " + ROUND_COUNT + "-х раундов игры ");
+            System.out.println(isDraw ? "ничья." : "победил " + players[winnerIndex].getName() +
+                    ", выиграв " + players[winnerIndex].getRoundsWon() + " раунда");
+            reset();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void reset() {
+        round = 0;
+
+        for (Player player : players) {
+            player.resetRounds();
+        }
     }
 }

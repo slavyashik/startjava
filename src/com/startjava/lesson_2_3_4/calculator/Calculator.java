@@ -6,7 +6,7 @@ public class Calculator {
     public static double calculate(String inputExpression) {
         String[] args = inputExpression.split(" ");
 
-        if (args.length > ARGS_LIMIT) {
+        if (args.length > ARGS_LIMIT || args.length < ARGS_LIMIT) {
             throw new IllegalArgumentException("Ошибка: неверный формат выражения");
         }
 

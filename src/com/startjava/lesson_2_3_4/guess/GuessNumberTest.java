@@ -4,15 +4,17 @@ import java.util.Scanner;
 
 public class GuessNumberTest {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Игра \"Угадай число\"");
 
-        System.out.print("Введите имя первого игрока: ");
-        String name1 = scanner.nextLine();
-        System.out.print("Введите имя второго игрока: ");
-        String name2 = scanner.nextLine();
+        String[] names = new String[GuessNumber.PLAYERS_COUNT];
+        Scanner scanner = new Scanner(System.in);
 
-        GuessNumber game = new GuessNumber(name1, name2);
+        for (int i = 0; i < GuessNumber.PLAYERS_COUNT; i++) {
+            System.out.print("Введите имя " + (i + 1) + " игрока: ");
+            names[i] = scanner.nextLine();
+        }
+
+        GuessNumber game = new GuessNumber(names);
         String choice = "yes";
 
         while (!choice.equals("no")) {

@@ -7,6 +7,7 @@ public class Player {
     public static final int MAX_ATTEMPTS = 10;
     private int[] numbers = new int[MAX_ATTEMPTS];
     private int attempts;
+    private int roundsWon;
 
     public Player(String name) {
         this.name = name;
@@ -17,11 +18,15 @@ public class Player {
     }
 
     void addNumber(int number) {
-        numbers[attempts++] = number;
+        if (number > 0 && number <= 100) {
+            numbers[attempts++] = number;
+        } else {
+            throw new IllegalArgumentException("Ошибка: введенное число должно быть в интервале (0; 100]");
+        }
     }
 
     int getNumber() {
-        return numbers[attempts - 1];
+        return attempts == 0 ? numbers[attempts] : numbers[attempts - 1];
     }
 
     int[] getNumbers() {
@@ -30,6 +35,18 @@ public class Player {
 
     int getAttempts() {
         return attempts;
+    }
+
+    void wonRound() {
+        roundsWon++;
+    }
+
+    int getRoundsWon() {
+        return roundsWon;
+    }
+
+    void resetRounds() {
+        roundsWon = 0;
     }
 
     void clear() {
