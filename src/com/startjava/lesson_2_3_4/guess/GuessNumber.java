@@ -6,12 +6,11 @@ import java.util.Scanner;
 public class GuessNumber {
     public static final int PLAYERS_COUNT = 3;
     private static final int ROUNDS_COUNT = 3;
+    private Random random = new Random();
+    private Scanner scanner = new Scanner(System.in);
     private Player[] players = new Player[PLAYERS_COUNT];
     private int secretNumber;
     private boolean isRoundOver;
-    private Random random = new Random();
-    private int round;
-    private Scanner scanner = new Scanner(System.in);
 
     public GuessNumber(String[] names) {
         for (int i = 0; i < PLAYERS_COUNT; i++) {
@@ -20,6 +19,7 @@ public class GuessNumber {
     }
 
     void start() {
+        int round = 0;
         shufflePlayers();
 
         do {
@@ -29,11 +29,11 @@ public class GuessNumber {
             System.out.println("Игра началась! У каждого игрока по 10 попыток.\n");
 
             while (!isRoundOver) {
-                for (int i = 0; i < PLAYERS_COUNT; i++) {
-                    if (hasAttempts(players[i])) {
-                        guessNumber(players[i]);
+                for (Player player : players) {
+                    if (hasAttempts(player)) {
+                        guessNumber(player);
 
-                        if (isGuessed(players[i])) {
+                        if (isGuessed(player)) {
                             break;
                         }
                     }
@@ -41,7 +41,9 @@ public class GuessNumber {
             }
 
             printAllNumbers();
-        } while (!findWinner());
+        } while (round < ROUNDS_COUNT);
+
+        findWinner();
     }
 
     private void shufflePlayers() {
@@ -90,7 +92,7 @@ public class GuessNumber {
             System.out.println("\nИгрок " + player.getName() + " угадал " +
                     guess + " с " + player.getAttempts() + " попытки");
             isRoundOver = true;
-            player.wonRound();
+            player.increaseWins();
             return true;
         }
 
@@ -115,32 +117,26 @@ public class GuessNumber {
         }
     }
 
-    private boolean findWinner() {
-        if (round == ROUNDS_COUNT) {
-            int maxWins = 0;
-            int winnerIndex = 0;
-            boolean isDraw = false;
+    private void findWinner() {
+        Player winner = null;
+        int maxWins = 0;
+        boolean isDraw = false;
 
-            for (int i = 0; i < PLAYERS_COUNT; i++) {
-                int roundsWon = players[i].getWinsCount();
-                if (roundsWon > maxWins) {
-                    maxWins = roundsWon;
-                    winnerIndex = i;
-                    isDraw = false;
-                } else if (roundsWon == maxWins) {
-                    isDraw = true;
-                }
+        for (Player player : players) {
+            int roundsWon = player.getWinsCount();
+            if (roundsWon > maxWins) {
+                maxWins = roundsWon;
+                winner = player;
+                isDraw = false;
+            } else if (roundsWon == maxWins) {
+                isDraw = true;
             }
-
-            System.out.printf("%nПо итогам " + ROUNDS_COUNT + "-х раундов игры ");
-            System.out.println(isDraw ? "ничья." : "победил " + players[winnerIndex].getName() +
-                    ", выиграв " + players[winnerIndex].getWinsCount() + " раунда");
-            resetPlayersWins();
-            round = 0;
-            return true;
         }
 
-        return false;
+        System.out.printf("%nПо итогам " + ROUNDS_COUNT + "-х раундов игры ");
+        System.out.println(isDraw ? "ничья." : "победил " + winner.getName() +
+                ", выиграв " + winner.getWinsCount() + " раунда");
+        resetPlayersWins();
     }
 
     private void resetPlayersWins() {

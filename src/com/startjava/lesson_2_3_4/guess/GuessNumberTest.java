@@ -8,7 +8,7 @@ public class GuessNumberTest {
     public static void main(String[] args) {
         System.out.println("Игра \"Угадай число\"");
 
-        GuessNumber game = new GuessNumber(getPlayersNames());
+        GuessNumber game = new GuessNumber(inputNames());
 
         String choice = "yes";
         while (!choice.equals("no")) {
@@ -21,7 +21,7 @@ public class GuessNumberTest {
         }
     }
 
-    private static String[] getPlayersNames() {
+    private static String[] inputNames() {
         String[] names = new String[GuessNumber.PLAYERS_COUNT];
 
         for (int i = 0; i < GuessNumber.PLAYERS_COUNT; i++) {

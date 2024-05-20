@@ -44,7 +44,7 @@ public class Player {
         return attempts == 0 ? numbers[attempts] : numbers[attempts - 1];
     }
 
-    void wonRound() {
+    void increaseWins() {
         winsCount++;
     }
 
