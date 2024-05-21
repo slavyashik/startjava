@@ -5,15 +5,20 @@ import java.util.Scanner;
 public class BookshelfTest {
     private static Scanner scanner = new Scanner(System.in);
     private static Bookshelf bookshelf = new Bookshelf();
-    private static boolean isOff = false;
 
     public static void main(String[] args) {
         do {
             printBookshelf();
             printMenu();
-            runOperation(inputOperation());
+            String choice = inputOperation();
+            runOperation(choice);
+
+            if (choice.equals("5")) {
+                break;
+            }
+
             waitEnter();
-        } while (!isOff);
+        } while (true);
     }
 
     private static void printBookshelf() {
@@ -58,7 +63,7 @@ public class BookshelfTest {
             case "2" -> removeBook();
             case "3" -> findBook();
             case "4" -> clear();
-            case "5" -> end();
+            case "5" -> System.out.println("\nЗавершили!");
             default -> System.out.println("\nОшибка: введен некорректный номер.");
         }
     }
@@ -104,16 +109,9 @@ public class BookshelfTest {
         System.out.println("Все книги удалены!");
     }
 
-    private static void end() {
-        isOff = true;
-        System.out.println("\nЗавершили!");
-    }
-
     private static void waitEnter() {
-        if (!isOff) {
-            System.out.print("\nДля продолжения нажмите Enter.\n");
-            scanner.nextLine();
-        }
+        System.out.print("\nДля продолжения нажмите Enter.\n");
+        scanner.nextLine();
     }
 
     private static String enterTitle() {
