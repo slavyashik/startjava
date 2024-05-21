@@ -30,7 +30,7 @@ public class Bookshelf {
 
     public void add(Book book) {
         books[booksCount++] = book;
-        if (book.getInfoLength() >= len) {
+        if (book.getInfoLength() > len) {
             refreshLen();
         }
     }
