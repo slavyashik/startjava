@@ -3,57 +3,48 @@ package src.com.startjava.graduation.bookshelf;
 import java.util.Arrays;
 
 public class Bookshelf {
-    private static final int CAPACITY = 10;
+    public static final int CAPACITY = 10;
     private int booksCount;
-    private int len;
+    private int lenShelves;
     private Book[] books = new Book[CAPACITY];
-
-    public int getCapacity() {
-        return CAPACITY;
-    }
 
     public int getBooksCount() {
         return booksCount;
     }
 
-    public int getLen() {
-        return len;
+    public int getLenShelves() {
+        return lenShelves;
     }
 
     public Book[] getBooks() {
         return Arrays.copyOf(books, booksCount);
     }
 
-    public int getFreeShelfsCount() {
+    public int getFreeShelvesCount() {
         return CAPACITY - booksCount;
     }
 
     public void add(Book book) {
         books[booksCount++] = book;
-        if (book.getInfoLength() > len) {
-            refreshLen();
+        if (book.getInfoLen() > lenShelves) {
+            updateLen();
         }
     }
 
     public Book find(String title) {
-        int bookNumber = findBookNumber(title);
-
-        if (bookNumber != -1) {
-            return books[bookNumber];
-        }
-
-        return null;
+        int index = findIndex(title);
+        return index != -1 ? books[index] : null;
     }
 
     public boolean remove(String title) {
-        int bookNumber = findBookNumber(title);
+        int index = findIndex(title);
 
-        if (bookNumber != -1) {
-            int length = books[bookNumber].getInfoLength();
-            System.arraycopy(books, bookNumber + 1, books, bookNumber, booksCount - bookNumber - 1);
+        if (index != -1) {
+            int len = books[index].getInfoLen();
+            System.arraycopy(books, index + 1, books, index, booksCount - index - 1);
             books[--booksCount] = null;
-            if (length == len) {
-                refreshLen();
+            if (len == lenShelves) {
+                updateLen();
             }
             return true;
         }
@@ -64,25 +55,25 @@ public class Bookshelf {
     public void clear() {
         Arrays.fill(books, 0, booksCount, null);
         booksCount = 0;
-        len = 0;
+        lenShelves = 0;
     }
 
-    private void refreshLen() {
-        len = 0;
+    private void updateLen() {
+        lenShelves = 0;
         for (int i = 0; i < booksCount; i++) {
-            len = Math.max(books[i].getInfoLength(), len);
+            lenShelves = Math.max(books[i].getInfoLen(), lenShelves);
         }
     }
 
-    private int findBookNumber(String title) {
-        int bookNumber = -1;
+    private int findIndex(String title) {
+        int index = -1;
 
         for (int i = 0; i < booksCount; i++) {
             if (books[i].getTitle().equals(title)) {
-                bookNumber = i;
+                index = i;
             }
         }
 
-        return bookNumber;
+        return index;
     }
 }

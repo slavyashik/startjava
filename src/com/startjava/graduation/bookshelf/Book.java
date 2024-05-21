@@ -17,7 +17,7 @@ public class Book {
         return title;
     }
 
-    public int getInfoLength() {
+    public int getInfoLen() {
         return infoLength;
     }
 

@@ -7,15 +7,7 @@ public class BookshelfTest {
     static Bookshelf bookshelf = new Bookshelf();
 
     public static void main(String[] args) {
-        String menu = """
-                \n1. Добавить книгу.
-                2. Удалить книгу.
-                3. Найти книгу.
-                4. Очистить шкаф.
-                5. Завершить.
-                """;
         String choice = "";
-
         while (!choice.equals("5")) {
             if (!choice.equals("")) {
                 System.out.print("\nДля продолжения нажмите Enter.\n");
@@ -23,32 +15,23 @@ public class BookshelfTest {
             }
 
             printBookshelf();
-            System.out.println(menu);
+            printMenu();
             System.out.print("Выберите операцию: ");
             choice = scanner.nextLine();
-
-            switch (choice) {
-                case "0" -> doDemoBooks();
-                case "1" -> addBook();
-                case "2" -> removeBook();
-                case "3" -> findBook();
-                case "4" -> clear();
-                case "5" -> System.out.println("\nЗавершили!");
-                default -> System.out.println("\nОшибка: введен некорректный номер.");
-            }
+            runOperation(choice);
         }
     }
 
     private static void printBookshelf() {
         int count = bookshelf.getBooksCount();
-        int len = bookshelf.getLen();
+        int len = bookshelf.getLenShelves();
 
         if (count > 0) {
             System.out.println("\nВ шкафу книг - " + count + ", свободно полок - " +
-                    bookshelf.getFreeShelfsCount() + "\n");
+                    bookshelf.getFreeShelvesCount() + "\n");
 
             for (Book book : bookshelf.getBooks()) {
-                System.out.println("|" + book + " ".repeat(len - book.getInfoLength()) + "|");
+                System.out.println("|" + book + " ".repeat(len - book.getInfoLen()) + "|");
                 System.out.println("|" + "-".repeat(len) + "|");
             }
 
@@ -59,8 +42,32 @@ public class BookshelfTest {
         System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
     }
 
+    private static void printMenu() {
+        String menu = """
+                \n1. Добавить книгу.
+                2. Удалить книгу.
+                3. Найти книгу.
+                4. Очистить шкаф.
+                5. Завершить.
+                """;
+
+        System.out.println(menu);
+    }
+
+    private static void runOperation(String choice) {
+        switch (choice) {
+            case "0" -> doDemoBooks();
+            case "1" -> addBook();
+            case "2" -> removeBook();
+            case "3" -> findBook();
+            case "4" -> clear();
+            case "5" -> System.out.println("\nЗавершили!");
+            default -> System.out.println("\nОшибка: введен некорректный номер.");
+        }
+    }
+
     private static void addBook() {
-        if (bookshelf.getBooksCount() >= bookshelf.getCapacity()) {
+        if (bookshelf.getBooksCount() >= Bookshelf.CAPACITY) {
             System.out.println("Шкаф полон.");
             return;
         }
@@ -77,6 +84,14 @@ public class BookshelfTest {
         bookshelf.add(book);
     }
 
+    private static void removeBook() {
+        if (bookshelf.remove(enterTitle())) {
+            System.out.println("Удалена");
+        } else {
+            System.out.println("Книги с таким названием нет");
+        }
+    }
+
     private static void findBook() {
         Book book = bookshelf.find(enterTitle());
 
@@ -84,14 +99,6 @@ public class BookshelfTest {
             System.out.println("Книги с таким названием нет");
         } else {
             System.out.println(book);
-        }
-    }
-
-    private static void removeBook() {
-        if (bookshelf.remove(enterTitle())) {
-            System.out.println("Удалена");
-        } else {
-            System.out.println("Книги с таким названием нет");
         }
     }
 
