@@ -1,16 +1,16 @@
 package src.com.startjava.graduation.bookshelf;
 
 public class Book {
-    private String author;
-    private String title;
-    private int publicationYear;
-    private int infoLength;
+    private final String author;
+    private final String title;
+    private final int publicationYear;
+    private final int infoLen;
 
     public Book(String author, String title, int publicationYear) {
         this.author = author;
         this.title = title;
         this.publicationYear = publicationYear;
-        infoLength = toString().length();
+        infoLen = toString().length();
     }
 
     public String getTitle() {
@@ -18,7 +18,7 @@ public class Book {
     }
 
     public int getInfoLen() {
-        return infoLength;
+        return infoLen;
     }
 
     public String toString() {

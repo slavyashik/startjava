@@ -6,7 +6,7 @@ public class Bookshelf {
     public static final int CAPACITY = 10;
     private int booksCount;
     private int lenShelves;
-    private Book[] books = new Book[CAPACITY];
+    private final Book[] books = new Book[CAPACITY];
 
     public int getBooksCount() {
         return booksCount;
@@ -66,14 +66,12 @@ public class Bookshelf {
     }
 
     private int findIndex(String title) {
-        int index = -1;
-
         for (int i = 0; i < booksCount; i++) {
             if (books[i].getTitle().equals(title)) {
-                index = i;
+                return i;
             }
         }
 
-        return index;
+        return -1;
     }
 }
