@@ -34,9 +34,9 @@ SELECT *
 
 -- Отобразите роботов, которые уничтожили больше всех kaiju, отобразив только данные столбцов model_name, mark, launch, kaiju_kill
 \echo 'Вывод роботов, уничтоживших больше всех kaiju';
-SELECT model_name, mark, launch, kaiju_kill
+SELECT model_name, mark, launch, kaiju_kills
   FROM jaegers
- ORDER BY kaiju_kill DESC;
+ ORDER BY kaiju_kills DESC;
 
 -- Отобразите средний вес роботов, округлив его до трех знаков после запятой
 \echo 'Вывод среднего веса роботов';
@@ -46,7 +46,7 @@ SELECT ROUND(AVG(weight), 3) AS avg_weight
 -- Увеличьте на единицу количество уничтоженных kaiju у роботов, которые до сих пор не разрушены, а затем отобразите таблицу
 \echo 'Увеличение на единицу количества уничтоженных kaiju у не уничтоженных роботов';
 UPDATE jaegers
-  SET kaiju_kill = kaiju_kill + 1
+  SET kaiju_kills = kaiju_kills + 1
   WHERE status <> 'Destroyed';
 
 SELECT *
