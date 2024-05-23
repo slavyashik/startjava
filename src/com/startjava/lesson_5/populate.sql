@@ -1,4 +1,3 @@
--- Заполнение таблицы robots данными
 INSERT INTO jaegers (model_name, mark, height, weight, status, origin, launch, kaiju_kill)
 VALUES ('Gipsy Danger', 'Mark-3', 79.25, 1980.00, 'Destroyed', 'USA', '2017-08-10', 9),
        ('Striker Eureka', 'Mark-5', 76.20, 1850.00, 'Operational', 'Australia', '2019-11-01', 11),
